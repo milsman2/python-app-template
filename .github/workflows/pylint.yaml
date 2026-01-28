@@ -11,7 +11,7 @@ jobs:
     permissions:
       contents: read
     env:
-      UV_VERSION: '0.8.4'
+      UV_VERSION: '0.9.27'
       PYTHON_VERSION: '3.13'
 
     steps:
@@ -41,7 +41,9 @@ jobs:
         run: uv sync
 
       - name: Run pylint
-        run: uv run -- pylint src
+        run: |
+          uv run -- pylint src
+          uv run -- pylint tests
 
       - name: Save uv caches
         if: steps.cache-restore.outputs.cache-hit != 'true'
