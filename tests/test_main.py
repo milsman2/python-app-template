@@ -10,7 +10,7 @@ from src.main import main
 
 def test_main_subprocess():
     result = subprocess.run(
-        [sys.executable, "-m", "app.main"],
+        [sys.executable, "-m", "src.main"],
         capture_output=True,
         text=True,
         check=True,
