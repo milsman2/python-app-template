@@ -11,5 +11,5 @@ def main():
     logger.info("Hello from python-app-template!")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()
