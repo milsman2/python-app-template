@@ -30,7 +30,7 @@ jobs:
       - name: Install dependencies and populate cache
         run: |
           echo "Building global UV cache..."
-          uv sync --group dev
+          uv sync
           echo "Cache populated successfully"
 
       - name: Save uv caches
