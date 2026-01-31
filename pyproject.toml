@@ -1,10 +1,5 @@
-[tool.coverage.run]
-source = ["src"]
-
-[tool.coverage.report]
-omit = ["tests/*"]
 [project]
-name = "python-app-template"
+name = "sample_python_app"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
@@ -23,7 +18,14 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-build = ["uv ~= 0.9.27"]
+build = ["uv >= 0.9.28"]
+
+[build-system]
+requires = ["uv_build >= 0.9.28, < 0.10.0"]
+build-backend = "uv_build"
+
+[project.scripts]
+sample-python-app = "sample_python_app.main:run_app"
 
 [tool.semantic_release]
 build_command = """
@@ -32,3 +34,10 @@ build_command = """
     git add uv.lock
     uv build
 """
+version_toml = ["pyproject.toml:project.version"]
+
+[tool.coverage.run]
+source = ["src"]
+
+[tool.coverage.report]
+omit = ["tests/*"]
