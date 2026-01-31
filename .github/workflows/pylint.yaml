@@ -11,12 +11,12 @@ jobs:
     permissions:
       contents: read
     env:
-      UV_VERSION: '0.9.27'
+      UV_VERSION: '0.9.28'
       PYTHON_VERSION: '3.13'
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Restore global uv cache
         id: cache-restore

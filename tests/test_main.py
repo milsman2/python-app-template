@@ -5,12 +5,12 @@ Docstring for tests.test_main
 import subprocess
 import sys
 
-from src.main import main
+from sample_python_app import main
 
 
 def test_main_subprocess():
     result = subprocess.run(
-        [sys.executable, "-m", "src.main"],
+        [sys.executable, "-m", "src.sample_python_app.main"],
         capture_output=True,
         text=True,
         check=True,
@@ -19,6 +19,6 @@ def test_main_subprocess():
 
 
 def test_main_runs(capfd):
-    main()
+    main.run_app()
     out, _ = capfd.readouterr()
     assert "Hello from python-app-template!" in out
