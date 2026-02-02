@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.1.4 (2026-02-02)
+
+### Bug Fixes
+
+- Bump astral-sh/setup-uv from 6 to 7
+  ([`a057804`](https://github.com/milsman2/python-app-template/commit/a0578049262cd060fd50c160805db78bd3d51d18))
+
+
 ## v1.1.3 (2026-02-02)
 
 ### Bug Fixes
