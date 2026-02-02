@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.1.3 (2026-02-02)
+
+### Bug Fixes
+
+- Bump actions/checkout from 4 to 6
+  ([`8462ff8`](https://github.com/milsman2/python-app-template/commit/8462ff8d95045e251b6642a4635851526956e600))
+
+
 ## v1.1.2 (2026-02-02)
 
 ### Bug Fixes
