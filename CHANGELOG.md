@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.1.1 (2026-02-02)
+
+### Bug Fixes
+
+- Update branch filter and cache key for UV build workflow
+  ([`52a1297`](https://github.com/milsman2/python-app-template/commit/52a1297ed63bbd335322a256aa8351989c112617))
+
+
 ## v1.1.0 (2026-02-02)
 
 ### Features
