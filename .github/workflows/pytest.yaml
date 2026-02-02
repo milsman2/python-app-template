@@ -19,7 +19,7 @@ jobs:
 
       - name: Restore uv caches
         id: cache-restore
-        uses: actions/cache/restore@v4
+        uses: actions/cache/restore@v5
         with:
           path: |
             ~/.cache/uv
@@ -46,7 +46,7 @@ jobs:
 
       - name: Save uv caches
         if: steps.cache-restore.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v4
+        uses: actions/cache/save@v5
         with:
           path: |
             ~/.cache/uv
