@@ -3,7 +3,7 @@ name: Build uv cache
 on:
   push:
     branches:
-      - main
+      - '**'
     paths:
       - 'uv.lock'
       - 'pyproject.toml'
@@ -40,4 +40,4 @@ jobs:
             ~/.cache/uv
             ~/.local/share/uv
             .venv
-          key: uv-main-${{ env.UV_VERSION }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('pyproject.toml', 'uv.lock') }}
+          key: uv-${{ github.ref_name }}-${{ env.UV_VERSION }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('pyproject.toml', 'uv.lock') }}
