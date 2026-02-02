@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.1.2 (2026-02-02)
+
+### Bug Fixes
+
+- Bump actions/cache from 4 to 5
+  ([`9ef9827`](https://github.com/milsman2/python-app-template/commit/9ef98271da933c7802834ee2d457ddb4b423bc9d))
+
+
 ## v1.1.1 (2026-02-02)
 
 ### Bug Fixes
