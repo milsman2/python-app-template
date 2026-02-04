@@ -2,6 +2,28 @@
 
 <!-- version list -->
 
+## v1.2.0 (2026-02-04)
+
+### Bug Fixes
+
+- Downgrade actions and setup versions in Docker workflow
+  ([`4f8fa56`](https://github.com/milsman2/python-app-template/commit/4f8fa5682153cfd2b42cca8c2e7c36f1cd9cceb0))
+
+- Normalize environment variable names in Docker workflow
+  ([`fb708d9`](https://github.com/milsman2/python-app-template/commit/fb708d948574eabaa427969dca223c2c13e06b03))
+
+- Normalize formatting of environment variables in Docker workflow
+  ([`7c0b3f7`](https://github.com/milsman2/python-app-template/commit/7c0b3f73ef6cf4455c80814c067251b30ef0317f))
+
+- Reorder steps in Docker workflow and update image reference for Trivy scan
+  ([`5fff51d`](https://github.com/milsman2/python-app-template/commit/5fff51d4090568437a2ce6c0603dc05a5ffa227b))
+
+### Features
+
+- Add Dockerfile and GitHub Actions workflow for Docker build and Trivy scan
+  ([`2db6f30`](https://github.com/milsman2/python-app-template/commit/2db6f30a195a3d9bdd19018bc8bc50560616cfd5))
+
+
 ## v1.1.4 (2026-02-02)
 
 ### Bug Fixes
