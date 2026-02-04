@@ -1,0 +1,39 @@
+name: Docker Build and Trivy Scan
+
+on:
+  push:
+    branches:
+      - '**'
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_PATH_CONTEXT: .
+      DOCKER_BUILD_DOCKERFILE: Dockerfile
+      DOCKER_LOAD_BOOL: true
+      DOCKER_TAGS: sample-python-app:${{ github.sha }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build Docker Image
+        id: build-image
+        uses: docker/build-push-action@v6
+        with:
+          context: ${{ env.DOCKER_PATH_CONTEXT }}
+          file: ${{ env.DOCKER_BUILD_DOCKERFILE }}
+          load: ${{ env.DOCKER_LOAD_BOOL }}
+          tags: ${{ env.DOCKER_TAGS }}
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.33.1
+        with:
+          image-ref: ${{ env.DOCKER_TAGS }}
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
