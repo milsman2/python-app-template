@@ -9,10 +9,10 @@ jobs:
   build-and-scan:
     runs-on: ubuntu-latest
     env:
-      DOCKER_CONTEXT: '.'
-      DOCKERFILE: 'Dockerfile'
-      DOCKER_LOAD: 'true'
-      TAGS: 'sample-python-app:${{ github.sha }}'
+      DOCKER_CONTEXT: .
+      DOCKERFILE: Dockerfile
+      DOCKER_LOAD: true
+      TAGS: sample-python-app:${{ github.sha }}
     steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3.12.0
