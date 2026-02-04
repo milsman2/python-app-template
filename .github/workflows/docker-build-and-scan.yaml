@@ -9,10 +9,10 @@ jobs:
   build-and-scan:
     runs-on: ubuntu-latest
     env:
-      DOCKER_CONTEXT: .
-      DOCKERFILE: Dockerfile
-      DOCKER_LOAD: true
-      TAGS: sample-python-app:${{ github.sha }}
+      DOCKER_PATH_CONTEXT: .
+      DOCKER_BUILD_DOCKERFILE: Dockerfile
+      DOCKER_LOAD_BOOL: true
+      DOCKER_TAGS: sample-python-app:${{ github.sha }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,14 +24,14 @@ jobs:
         id: build-image
         uses: docker/build-push-action@v6
         with:
-          context: ${{ env.DOCKER_CONTEXT }}
-          file: ${{ env.DOCKERFILE }}
-          load: ${{ env.DOCKER_LOAD }}
-          tags: ${{ env.TAGS }}
+          context: ${{ env.DOCKER_PATH_CONTEXT }}
+          file: ${{ env.DOCKER_BUILD_DOCKERFILE }}
+          load: ${{ env.DOCKER_LOAD_BOOL }}
+          tags: ${{ env.DOCKER_TAGS }}
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.33.1
         with:
-          image-ref: ${{ env.TAGS }}
+          image-ref: ${{ env.DOCKER_TAGS }}
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
