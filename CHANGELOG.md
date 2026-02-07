@@ -2,6 +2,17 @@
 
 <!-- version list -->
 
+## v1.3.0 (2026-02-07)
+
+### Features
+
+- Add workflow_call inputs for Docker build and scan
+  ([`987a2b1`](https://github.com/milsman2/python-app-template/commit/987a2b1f91583e4e04b1c3cd47686a0a69c50859))
+
+- Docker release workflow integration and branch setup
+  ([`5b288c9`](https://github.com/milsman2/python-app-template/commit/5b288c9e83c0fa89e9e23d0ba649f802b2a58658))
+
+
 ## v1.2.0 (2026-02-04)
 
 ### Bug Fixes
