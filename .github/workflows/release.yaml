@@ -80,8 +80,9 @@ jobs:
   docker-build-and-scan:
     needs: Semantic-Release
     uses: milsman2/python-app-template/.github/workflows/docker-build-and-scan.yaml@main
+    secrets: inherit
     with:
       DOCKER_PATH_CONTEXT: .
       DOCKER_BUILD_DOCKERFILE: Dockerfile
       DOCKER_LOAD_BOOL: true
-      DOCKER_TAGS: sample-python-app:${{ needs.Semantic-Release.outputs.tag }}
+      DOCKER_TAGS: milsman2/sample-python-app:${{ needs.Semantic-Release.outputs.tag }}
