@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.5.0 (2026-02-07)
+
+### Features
+
+- Update Docker workflow to include DockerHub login and adjust image tagging
+  ([`f7a2866`](https://github.com/milsman2/python-app-template/commit/f7a286649cbc2d43dd036d8912efabae545ec37a))
+
+
 ## v1.4.0 (2026-02-07)
 
 ### Features
