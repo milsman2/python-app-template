@@ -12,15 +12,25 @@ log_format = (
 )
 
 
-def setup_logger():
+def setup_logger(mode="normal"):
     logger.remove()
-    logger.add(sink=lambda msg: print(msg, end=""), format=log_format, level="INFO")
-    logger.add(
-        "app.log",
-        format=log_format,
-        level="DEBUG",
-        rotation="1 MB",
-        retention="10 days",
-        compression="zip",
-    )
+    if mode == "silent":
+        logger.add(
+            "app.log",
+            format=log_format,
+            level="DEBUG",
+            rotation="1 MB",
+            retention="10 days",
+            compression="zip",
+        )
+    else:
+        logger.add(sink=lambda msg: print(msg, end=""), format=log_format, level="INFO")
+        logger.add(
+            "app.log",
+            format=log_format,
+            level="DEBUG",
+            rotation="1 MB",
+            retention="10 days",
+            compression="zip",
+        )
     return logger

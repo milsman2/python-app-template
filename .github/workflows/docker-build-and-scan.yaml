@@ -39,14 +39,14 @@ jobs:
         id: build-image
         uses: docker/build-push-action@v6
         with:
-          context: ${{ env.DOCKER_PATH_CONTEXT }}
-          file: ${{ env.DOCKER_BUILD_DOCKERFILE }}
-          load: ${{ env.DOCKER_LOAD_BOOL }}
-          tags: ${{ env.DOCKER_TAGS }}
+          context: ${{ inputs.DOCKER_PATH_CONTEXT || env.DOCKER_PATH_CONTEXT }}
+          file: ${{ inputs.DOCKER_BUILD_DOCKERFILE || env.DOCKER_BUILD_DOCKERFILE }}
+          load: ${{ inputs.DOCKER_LOAD_BOOL || env.DOCKER_LOAD_BOOL }}
+          tags: ${{ inputs.DOCKER_TAGS || env.DOCKER_TAGS }}
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.33.1
         with:
-          image-ref: ${{ env.DOCKER_TAGS }}
+          image-ref: ${{ inputs.DOCKER_TAGS || env.DOCKER_TAGS }}
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
@@ -62,7 +62,7 @@ jobs:
         if: github.event_name == 'workflow_call'
         uses: docker/build-push-action@v6
         with:
-          context: ${{ env.DOCKER_PATH_CONTEXT }}
-          file: ${{ env.DOCKER_BUILD_DOCKERFILE }}
+          context: ${{ inputs.DOCKER_PATH_CONTEXT || env.DOCKER_PATH_CONTEXT }}
+          file: ${{ inputs.DOCKER_BUILD_DOCKERFILE || env.DOCKER_BUILD_DOCKERFILE }}
           push: true
-          tags: ${{ env.DOCKER_TAGS }}
+          tags: ${{ inputs.DOCKER_TAGS || env.DOCKER_TAGS }}
