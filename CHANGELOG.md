@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.4.0 (2026-02-07)
+
+### Features
+
+- Enhance logging setup and add rich output support with figlet
+  ([`382616b`](https://github.com/milsman2/python-app-template/commit/382616b535ada89f0b6f42276b8ae791e888591c))
+
+
 ## v1.3.0 (2026-02-07)
 
 ### Features
