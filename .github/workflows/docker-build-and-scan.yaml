@@ -35,14 +35,20 @@ jobs:
         uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-      - name: Build Docker Image
-        id: build-image
+      - name: Login to DockerHub
+        if: github.event_name == 'workflow_call'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Build (and maybe push) Docker image
         uses: docker/build-push-action@v6
         with:
-          context: ${{ inputs.DOCKER_PATH_CONTEXT || env.DOCKER_PATH_CONTEXT }}
-          file: ${{ inputs.DOCKER_BUILD_DOCKERFILE || env.DOCKER_BUILD_DOCKERFILE }}
-          load: ${{ inputs.DOCKER_LOAD_BOOL || env.DOCKER_LOAD_BOOL }}
-          tags: ${{ inputs.DOCKER_TAGS || env.DOCKER_TAGS }}
+          context: ${{ github.event_name == 'workflow_call' && inputs.DOCKER_PATH_CONTEXT || env.DOCKER_PATH_CONTEXT }}
+          file: ${{ github.event_name == 'workflow_call' && inputs.DOCKER_BUILD_DOCKERFILE || env.DOCKER_BUILD_DOCKERFILE }}
+          load: ${{ github.event_name != 'workflow_call' }}
+          push: ${{ github.event_name == 'workflow_call' }}
+          tags: ${{ github.event_name == 'workflow_call' && inputs.DOCKER_TAGS || env.DOCKER_TAGS }}
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.33.1
         with:
@@ -52,17 +58,3 @@ jobs:
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
-      - name: Login to DockerHub
-        if: github.event_name == 'workflow_call'
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Push Docker image to DockerHub
-        if: github.event_name == 'workflow_call'
-        uses: docker/build-push-action@v6
-        with:
-          context: ${{ inputs.DOCKER_PATH_CONTEXT || env.DOCKER_PATH_CONTEXT }}
-          file: ${{ inputs.DOCKER_BUILD_DOCKERFILE || env.DOCKER_BUILD_DOCKERFILE }}
-          push: true
-          tags: ${{ inputs.DOCKER_TAGS || env.DOCKER_TAGS }}

@@ -11,7 +11,7 @@ from sample_python_app.core import settings, setup_logger
 def run_app():
     console = Console()
     f = Figlet(font="slant")
-    ascii_art = f.renderText("Hello, Synthwave!")
+    ascii_art = f.renderText(f"Welcome to {settings.APP_NAME}!")
     console.print(f"[bold magenta]{ascii_art}[/bold magenta]")
     logger = setup_logger(mode="silent")
     logger.info(f"Starting {settings.APP_NAME}...")
