@@ -21,4 +21,5 @@ def test_main_subprocess():
 def test_main_runs(capfd):
     main.run_app()
     out, _ = capfd.readouterr()
-    assert "Hello from python-app-template!" in out
+    # Check for a distinctive substring from the ASCII art output
+    assert "__  __" in out or "/ / / /__" in out
