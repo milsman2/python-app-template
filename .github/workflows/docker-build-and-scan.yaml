@@ -5,6 +5,21 @@ on:
     branches:
       - '**'
 
+  workflow_call:
+    inputs:
+      DOCKER_PATH_CONTEXT:
+        required: true
+        type: string
+      DOCKER_BUILD_DOCKERFILE:
+        required: true
+        type: string
+      DOCKER_LOAD_BOOL:
+        required: true
+        type: boolean
+      DOCKER_TAGS:
+        required: true
+        type: string
+
 jobs:
   build-and-scan:
     runs-on: ubuntu-latest
