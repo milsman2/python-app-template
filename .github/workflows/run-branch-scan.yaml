@@ -6,10 +6,11 @@ on:
       - main
 jobs:
   docker-build-and-scan:
-    uses: milsman2/python-app-template/.github/workflows/docker-build-and-scan.yaml@main
+    uses: ./.github/workflows/docker-build-and-scan.yaml
     secrets: inherit
     with:
       DOCKER_PATH_CONTEXT: .
       DOCKER_BUILD_DOCKERFILE: Dockerfile
       DOCKER_LOAD_BOOL: true
       DOCKER_TAGS: sample-python-app:${{ github.sha }}
+      DOCKER_PUSH_BOOL: false

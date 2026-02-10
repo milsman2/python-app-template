@@ -16,6 +16,10 @@ on:
         required: false
         type: boolean
         default: false
+      DOCKER_PUSH_BOOL:
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   build-and-scan:
@@ -38,7 +42,7 @@ jobs:
           context: ${{  inputs.DOCKER_PATH_CONTEXT }}
           file: ${{  inputs.DOCKER_BUILD_DOCKERFILE}}
           load: ${{ inputs.DOCKER_LOAD_BOOL }}
-          push: ${{ github.event_name == 'workflow_call' }}
+          push: ${{ inputs.DOCKER_PUSH_BOOL }}
           tags: ${{  inputs.DOCKER_TAGS }}
       - name: Run Trivy vulnerability scanner (remote)
         uses: aquasecurity/trivy-action@0.33.1
