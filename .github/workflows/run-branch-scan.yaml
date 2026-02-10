@@ -1,0 +1,14 @@
+name: Scan Release Branch with Trivy
+
+on:
+  push:
+    branches-ignore:
+      - main
+jobs:
+  docker-build-and-scan:
+    uses: milsman2/python-app-template/.github/workflows/docker-build-and-scan.yaml@main
+    secrets: inherit
+    with:
+      DOCKER_PATH_CONTEXT: .
+      DOCKER_BUILD_DOCKERFILE: Dockerfile
+      DOCKER_TAGS: milsman2/sample-python-app:${{ github.sha }}
