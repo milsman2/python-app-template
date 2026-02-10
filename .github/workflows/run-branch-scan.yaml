@@ -12,4 +12,4 @@ jobs:
       DOCKER_PATH_CONTEXT: .
       DOCKER_BUILD_DOCKERFILE: Dockerfile
       DOCKER_LOAD_BOOL: true
-      DOCKER_TAGS: milsman2/sample-python-app:${{ github.sha }}
+      DOCKER_TAGS: sample-python-app:${{ github.sha }}
