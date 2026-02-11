@@ -21,7 +21,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-build = ["uv >= 0.9.28"]
+build = ["uv >= 0.10.2"]
 
 [build-system]
 requires = ["uv_build>=0.9.28,<0.11.0"]
