@@ -76,3 +76,14 @@ jobs:
             ~/.local/share/uv
             .venv
           key: uv-main-${{ env.UV_VERSION }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('pyproject.toml', 'uv.lock') }}
+
+  Docker-Release:
+    uses: ./.github/workflows/docker-build-and-scan.yaml
+    needs: Semantic-Release
+    secrets: inherit
+    with:
+      DOCKER_PATH_CONTEXT: .
+      DOCKER_BUILD_DOCKERFILE: Dockerfile
+      DOCKER_LOAD_BOOL: false
+      DOCKER_TAGS: milsman2/sample-python-app:${{ needs.Semantic-Release.outputs.tag }}
+      DOCKER_PUSH_BOOL: true
