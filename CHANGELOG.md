@@ -2,6 +2,37 @@
 
 <!-- version list -->
 
+## v1.6.0 (2026-02-11)
+
+### Bug Fixes
+
+- Add DOCKER_PUSH_BOOL input to Docker workflow for conditional image pushing
+  ([`9743034`](https://github.com/milsman2/python-app-template/commit/97430345a45a9029bdd07c386b1fea92e3d0e938))
+
+- Update actions/checkout version and change username reference to vars in Docker workflow
+  ([`4e53c54`](https://github.com/milsman2/python-app-template/commit/4e53c5466e79dddfe91ad7fb3d71a8a4502d3f1f))
+
+- Update Docker tags to remove repository prefix in branch scan workflow
+  ([`7f5177c`](https://github.com/milsman2/python-app-template/commit/7f5177cfd08be8ec87bb6d832254d0f2bcb8150e))
+
+- Update uv to 0.10.2
+  ([`1f64d5a`](https://github.com/milsman2/python-app-template/commit/1f64d5ad23f311acb02afee9da0bde7388784092))
+
+- Update UV_VERSION to 0.10.2 in workflow files
+  ([`a4f71c9`](https://github.com/milsman2/python-app-template/commit/a4f71c9912d84daf046fb80b59fb36fce17d1069))
+
+### Features
+
+- Add Docker-Release job to workflow for building and pushing Docker images
+  ([`e86881d`](https://github.com/milsman2/python-app-template/commit/e86881de56105844b2b5db651fbe953a7f434cd6))
+
+- Streamline Docker workflow by removing unnecessary inputs and adding branch scan workflow
+  ([`b29c79b`](https://github.com/milsman2/python-app-template/commit/b29c79b5f1249cbb87d6a4635b20a3a3efe02a9a))
+
+- Update Docker workflow to include optional load boolean for image build
+  ([`04fa14d`](https://github.com/milsman2/python-app-template/commit/04fa14d7348a51ea6daf1c45dbd5f3bd9b0b7e56))
+
+
 ## v1.5.0 (2026-02-07)
 
 ### Features
