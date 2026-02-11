@@ -19,7 +19,7 @@ jobs:
       dist_artifacts_name: dist
       dist_artifacts_dir: dist
       lock_file_artifact: uv.lock
-      UV_VERSION: '0.9.28'
+      UV_VERSION: '0.10.2'
       PYTHON_VERSION: '3.13'
       GITHUB_ACTIONS_AUTHOR_NAME: github-actions
       GITHUB_ACTIONS_AUTHOR_EMAIL: actions@users.noreply.github.com
@@ -77,12 +77,13 @@ jobs:
             .venv
           key: uv-main-${{ env.UV_VERSION }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('pyproject.toml', 'uv.lock') }}
 
-  docker-build-and-scan:
+  Docker-Release:
+    uses: ./.github/workflows/docker-build-and-scan.yaml
     needs: Semantic-Release
-    uses: milsman2/python-app-template/.github/workflows/docker-build-and-scan.yaml@main
     secrets: inherit
     with:
       DOCKER_PATH_CONTEXT: .
       DOCKER_BUILD_DOCKERFILE: Dockerfile
-      DOCKER_LOAD_BOOL: true
+      DOCKER_LOAD_BOOL: false
       DOCKER_TAGS: milsman2/sample-python-app:${{ needs.Semantic-Release.outputs.tag }}
+      DOCKER_PUSH_BOOL: true

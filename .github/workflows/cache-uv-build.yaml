@@ -13,7 +13,7 @@ jobs:
   build-cache:
     runs-on: ubuntu-latest
     env:
-      UV_VERSION: '0.9.28'
+      UV_VERSION: '0.10.2'
       PYTHON_VERSION: '3.13'
 
     steps:
