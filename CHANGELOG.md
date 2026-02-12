@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.7.0 (2026-02-12)
+
+### Bug Fixes
+
+- Refactor imports and enhance data fetching for astronomical data display
+  ([`3131aa2`](https://github.com/milsman2/python-app-template/commit/3131aa282ad7b5e060ff258b5f2c83dbbb584c41))
+
+### Features
+
+- Implement weather.gov astronomical data fetching and display
+  ([`021c397`](https://github.com/milsman2/python-app-template/commit/021c3973a22c5589e585ddc91f2659b5cde39c87))
+
+
 ## v1.6.0 (2026-02-11)
 
 ### Bug Fixes
