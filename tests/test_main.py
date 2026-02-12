@@ -21,5 +21,6 @@ def test_main_subprocess():
 def test_main_runs(capfd):
     main.run_app()
     out, _ = capfd.readouterr()
-    # Check for a distinctive substring from the ASCII art output
-    assert "__  __" in out or "/ / / /__" in out
+    assert "Sunrise" in out
+    assert "Sunset" in out
+    assert "Astronomical Twilight Begin" in out
