@@ -5,7 +5,8 @@ Handles formatting and displaying astronomical data using rich and pyfiglet.
 from pyfiglet import Figlet
 from rich.console import Console
 
-from sample_python_app.core import settings, setup_logger
+from sample_python_app.core.config import settings
+from sample_python_app.core.logging import setup_logger
 
 
 def display_astronomical_data(astro):

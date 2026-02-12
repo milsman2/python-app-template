@@ -2,11 +2,11 @@
 Handles loading and validating weather.gov astronomical data from file.
 """
 
+import httpx
 from pydantic import ValidationError
 
-from sample_python_app.core import setup_logger
+from sample_python_app.core.logging import setup_logger
 from sample_python_app.models import WeatherGovFeature
-import httpx
 
 
 def fetch_astronomical_data_from_api(lat: float, lon: float):

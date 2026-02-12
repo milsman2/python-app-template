@@ -3,9 +3,11 @@ Main entry point for weather.gov astronomical data display.
 Orchestrates loading and displaying astronomical data.
 """
 
-import httpx
 import json
+
+import httpx
 from pydantic import ValidationError
+
 from sample_python_app.core import (
     display_astronomical_data,
     fetch_astronomical_data_from_api,
