@@ -11,11 +11,12 @@ from pydantic import ValidationError
 from sample_python_app.core import (
     display_astronomical_data,
     fetch_astronomical_data_from_api,
+    weather_settings,
 )
 
 
 def run_app():
-    lat, lon = 29.8469, -95.4689
+    lat, lon = weather_settings.LOCATION.latitude, weather_settings.LOCATION.longitude
     try:
         astro = fetch_astronomical_data_from_api(lat, lon)
     except httpx.HTTPStatusError as e:
