@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.8.0 (2026-02-13)
+
+### Bug Fixes
+
+- Add docstring to test_config.py for improved clarity on test coverage
+  ([`f04f4d5`](https://github.com/milsman2/python-app-template/commit/f04f4d5560db7729eedaba02f420b41a381417b6))
+
+### Features
+
+- Add pydantic-extra-types for enhanced coordinate handling and update weather settings
+  ([`90804bd`](https://github.com/milsman2/python-app-template/commit/90804bd9557fcec60020ef89fbee787224ca39d6))
+
+
 ## v1.7.0 (2026-02-12)
 
 ### Bug Fixes
