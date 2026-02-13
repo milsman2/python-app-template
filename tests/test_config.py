@@ -1,3 +1,8 @@
+"""
+Unit tests for sample_python_app.core.config module.
+Covers Settings and WeatherSettings instantiation, properties, and model_config.
+"""
+
 from sample_python_app.core.config import settings, weather_settings
 
 
