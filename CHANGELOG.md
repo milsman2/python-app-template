@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.9.0 (2026-02-14)
+
+### Bug Fixes
+
+- Add sample weather data JSON for location and time information
+  ([`4e7a960`](https://github.com/milsman2/python-app-template/commit/4e7a9607cdd0c2b1121dec37b9da9a45db53f7a1))
+
+### Features
+
+- Add Ruff linting workflow and update dependencies for improved code quality
+  ([`56cfe3a`](https://github.com/milsman2/python-app-template/commit/56cfe3ace5f9204816a0db641d86efbd1c960262))
+
+
 ## v1.8.0 (2026-02-13)
 
 ### Bug Fixes
