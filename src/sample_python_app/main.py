@@ -22,6 +22,7 @@ logger = setup_logger(mode="silent")
 def run_app():
     """Run the application."""
     lat, lon = weather_settings.LOCATION.latitude, weather_settings.LOCATION.longitude
+    logger.info(f"Using input latitude: {lat}, longitude: {lon}")
     try:
         astro = fetch_astronomical_data_from_api(lat, lon)
     except httpx.HTTPStatusError as e:

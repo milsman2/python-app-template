@@ -68,7 +68,6 @@ def display_astronomical_data(astro):
     sunset_time_art = Figlet(font="big", width=100).renderText(sunset_time_str)
     sunset_time_text = Text(sunset_time_art)
     sunset_time_text.stylize("bold blue")
-    from rich.table import Table
 
     astro_table = Table(show_header=True, header_style="bold magenta", box=None)
     astro_table.add_column("Event", style="bold #ff00cc")
@@ -101,9 +100,8 @@ def display_astronomical_data(astro):
         )
 
     # Compose all parts into a single renderable for the panel
-    from rich.console import Group
-
     from rich.columns import Columns
+    from rich.console import Group
 
     # Combine sunrise and sunset figlet art and times in the same row
     sun_figlet_row = Columns(
