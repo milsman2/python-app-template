@@ -1,12 +1,11 @@
-"""
-Test for minimal figlet output using Rich and pyfiglet.
-"""
+"""Test for minimal figlet output using Rich and pyfiglet."""
 
 from pyfiglet import Figlet
 from rich.console import Console
 
 
 def test_figlet_rich_output(capfd):
+    """Test Rich and pyfiglet output to stdout."""
     console = Console()
     f = Figlet(font="slant")
     ascii_art = f.renderText("Hello, Synthwave!")

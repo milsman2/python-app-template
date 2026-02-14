@@ -42,14 +42,14 @@
       }
     }
   ],
-  "id": "https://api.weather.gov/points/29.8253,-95.4546",
+  "id": "https://api.weather.gov/points/29.8249,-95.4543",
   "type": "Feature",
   "geometry": {
     "type": "Point",
-    "coordinates": [-95.4546, 29.8253]
+    "coordinates": [-95.4543, 29.8249]
   },
   "properties": {
-    "@id": "https://api.weather.gov/points/29.8253,-95.4546",
+    "@id": "https://api.weather.gov/points/29.8249,-95.4543",
     "@type": "wx:Point",
     "cwa": "HGX",
     "type": "land",
@@ -72,11 +72,11 @@
         "state": "TX",
         "distance": {
           "unitCode": "wmoUnit:m",
-          "value": 5036.9691995333
+          "value": 5022.1983814209
         },
         "bearing": {
           "unitCode": "wmoUnit:degree_(angle)",
-          "value": 40
+          "value": 41
         }
       }
     },
@@ -86,21 +86,21 @@
     "timeZone": "America/Chicago",
     "radarStation": "KHGX",
     "astronomicalData": {
-      "sunrise": "2026-02-14T07:00:41-06:00",
-      "sunset": "2026-02-14T18:11:11-06:00",
-      "transit": "2026-02-14T12:35:56-06:00",
-      "civilTwilightBegin": "2026-02-14T06:37:31-06:00",
-      "civilTwilightEnd": "2026-02-14T18:34:21-06:00",
-      "nauticalTwilightBegin": "2026-02-14T06:09:27-06:00",
-      "nauticalTwilightEnd": "2026-02-14T19:02:25-06:00",
-      "astronomicalTwilightBegin": "2026-02-14T05:41:37-06:00",
-      "astronomicalTwilightEnd": "2026-02-14T19:30:15-06:00"
+      "sunrise": "2026-02-12T07:02:22-06:00",
+      "sunset": "2026-02-12T18:09:37-06:00",
+      "transit": "2026-02-12T12:36:00-06:00",
+      "civilTwilightBegin": "2026-02-12T06:39:09-06:00",
+      "civilTwilightEnd": "2026-02-12T18:32:51-06:00",
+      "nauticalTwilightBegin": "2026-02-12T06:11:00-06:00",
+      "nauticalTwilightEnd": "2026-02-12T19:00:59-06:00",
+      "astronomicalTwilightBegin": "2026-02-12T05:43:07-06:00",
+      "astronomicalTwilightEnd": "2026-02-12T19:28:52-06:00"
     },
     "nwr": {
       "transmitter": "KGG68",
       "sameCode": "048201",
       "areaBroadcast": "https://api.weather.gov/radio/KGG68/broadcast",
-      "pointBroadcast": "https://api.weather.gov/points/29.8253,-95.4546/radio"
+      "pointBroadcast": "https://api.weather.gov/points/29.8249,-95.4543/radio"
     }
   }
 }

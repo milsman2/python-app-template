@@ -1,6 +1,4 @@
-"""
-Main configuration file for the API
-"""
+"""Main configuration file for the API."""
 
 from zoneinfo import ZoneInfo
 
@@ -35,6 +33,7 @@ class Settings(BaseSettings):
 
     @property
     def tz(self) -> ZoneInfo:
+        """Return the configured timezone info."""
         return ZoneInfo(self.TIMEZONE)
 
 

@@ -1,6 +1,4 @@
-"""
-Handles formatting and displaying astronomical data using rich and pyfiglet.
-"""
+"""Handles formatting and displaying astronomical data using rich and pyfiglet."""
 
 from pyfiglet import Figlet
 from rich.console import Console
@@ -10,6 +8,15 @@ from sample_python_app.core.logging import setup_logger
 
 
 def display_astronomical_data(astro):
+    """Format and display astronomical data using rich and pyfiglet.
+
+    Args:
+        astro: AstronomicalData object containing sunrise, sunset, and formatted values.
+
+    Returns:
+        None
+
+    """
     logger = setup_logger(mode="silent")
     console = Console()
     header = Figlet(font="small", width=100).renderText("Astronomical Data")

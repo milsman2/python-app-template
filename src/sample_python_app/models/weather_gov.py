@@ -1,13 +1,13 @@
-"""
-Pydantic models for weather.gov API response, including astronomical data utilities.
+"""Pydantic models for weather.gov API response.
+
+including astronomical data utilities.
 """
 
 from datetime import datetime
-from typing import Any
+from typing import Annotated, Any
 from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel, Field
-from typing_extensions import Annotated
 
 
 class Distance(BaseModel):
@@ -25,8 +25,10 @@ class Bearing(BaseModel):
 
 
 class RelativeLocationProperties(BaseModel):
-    """Properties for a relative location including
-    city, state, distance, and bearing."""
+    """Properties for a relative location including.
+
+    city, state, distance, and bearing.
+    """
 
     city: str
     state: str
@@ -50,8 +52,10 @@ class RelativeLocation(BaseModel):
 
 
 class AstronomicalData(BaseModel):
-    """Astronomical event times for a given location,
-    with timezone conversion and formatting methods."""
+    """Astronomical event times for a given location.
+
+    With timezone conversion and formatting methods.
+    """
 
     sunrise: datetime
     sunset: datetime
@@ -70,9 +74,14 @@ class AstronomicalData(BaseModel):
     ]
 
     def as_local(self, tz: ZoneInfo) -> dict[str, datetime]:
+        """Return astronomical event times converted to the given timezone."""
         return {name: value.astimezone(tz) for name, value in self.__dict__.items()}
 
     def formatted(self, tz: ZoneInfo, fmt: str) -> dict[str, str]:
+        """Return formatted astronomical event times as strings.
+
+        For the given timezone and format.
+        """
         return {name: dt.strftime(fmt) for name, dt in self.as_local(tz).items()}
 
 
