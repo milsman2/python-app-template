@@ -2,6 +2,29 @@
 
 <!-- version list -->
 
+## v1.11.0 (2026-02-14)
+
+### Bug Fixes
+
+- Update job dependencies in CI/CD workflow for proper execution order
+  ([`b88538d`](https://github.com/milsman2/python-app-template/commit/b88538d13731b03290281953a56501e986020b10))
+
+### Chores
+
+- Remove obsolete run-branch-scan workflow file
+  ([`fc68211`](https://github.com/milsman2/python-app-template/commit/fc68211a5008b5b22707522603c191fff48ee03f))
+
+### Features
+
+- Refactor CI/CD workflows and enhance synthwave UI for astronomical data display
+  ([`aa3532b`](https://github.com/milsman2/python-app-template/commit/aa3532b5e74839a93838af5f9ee740e79ee0ea90))
+
+### Refactoring
+
+- Remove redundant import of setup_logger in core modules
+  ([`800e8ac`](https://github.com/milsman2/python-app-template/commit/800e8acfde7cc429987590a4d13d5c4d7aefe207))
+
+
 ## v1.10.0 (2026-02-14)
 
 ### Bug Fixes
