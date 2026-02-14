@@ -20,6 +20,7 @@ jobs:
     uses: ./.github/workflows/pytest.yaml
 
   docker:
+    if: github.event_name == 'push'
     needs: test
     uses: ./.github/workflows/docker-build-and-scan.yaml
     with:

@@ -25,6 +25,8 @@ def fetch_astronomical_data_from_api(lat: float, lon: float):
     logger = setup_logger(mode="silent")
     url = f"https://api.weather.gov/points/{lat},{lon}"
     headers = {"User-Agent": "(myweatherapp.com, contact@myweatherapp.com)"}
+    logger.info(f"Fetching astronomical data from URL: {url}")
+    logger.info(f"Request headers: {headers}")
     try:
         response = httpx.get(url, headers=headers)
         response.raise_for_status()

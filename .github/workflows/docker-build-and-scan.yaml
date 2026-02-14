@@ -45,6 +45,7 @@ jobs:
           push: ${{ inputs.DOCKER_PUSH_BOOL }}
           tags: ${{  inputs.DOCKER_TAGS }}
       - name: Run Trivy vulnerability scanner (remote)
+        if: ${{ github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v') }}
         uses: aquasecurity/trivy-action@0.33.1
         with:
           image-ref: docker.io/${{ inputs.DOCKER_TAGS }}
