@@ -1,9 +1,7 @@
-name: Unit Test & Coverage
+name: Unit Test & Coverage (Reusable)
 
 on:
-  pull_request:
-    branches:
-      - '*'
+  workflow_call:
 
 jobs:
   unit-test-coverage:
@@ -11,7 +9,7 @@ jobs:
     permissions:
       contents: read
     env:
-      UV_VERSION: '0.10.2'
+      UV_VERSION: '>=0.10.2'
       PYTHON_VERSION: '3.13'
     steps:
       - name: Checkout repository
@@ -45,7 +43,7 @@ jobs:
           uv run -- coverage report --show-missing
 
       - name: Save uv caches
-        if: steps.cache-restore.outputs.cache-hit != 'true'
+        if: always()
         uses: actions/cache/save@v5
         with:
           path: |
