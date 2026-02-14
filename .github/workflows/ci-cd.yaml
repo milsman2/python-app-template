@@ -12,11 +12,15 @@ on:
   workflow_dispatch:
 
 jobs:
+  cache:
+    uses: ./.github/workflows/cache-uv-build.yaml
+
   lint:
     uses: ./.github/workflows/ruff.yaml
+    needs: cache
 
   test:
-    needs: lint
+    needs: [lint, cache]
     uses: ./.github/workflows/pytest.yaml
 
   docker:
