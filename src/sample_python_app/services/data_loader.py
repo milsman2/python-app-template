@@ -1,9 +1,9 @@
-"""Handles loading and validating weather.gov astronomical data from file."""
+"""Handles loading and validating weather.gov astronomical data from file and API."""
 
 import httpx
 from pydantic import ValidationError
 
-from sample_python_app.core.logging import setup_logger
+from sample_python_app.core import setup_logger
 from sample_python_app.models import AstronomicalData, WeatherGovFeature
 
 
@@ -37,7 +37,4 @@ def fetch_astronomical_data_from_api(lat: float, lon: float) -> AstronomicalData
         return astro
     except ValidationError as e:
         logger.error(f"Data validation error: {e}")
-        raise
-    except httpx.HTTPError as e:
-        logger.error(f"Failed to fetch or validate data from API: {e}")
         raise

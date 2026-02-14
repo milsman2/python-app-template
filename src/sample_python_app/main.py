@@ -11,10 +11,10 @@ from pydantic import ValidationError
 
 from sample_python_app.core import (
     display_astronomical_data,
-    fetch_astronomical_data_from_api,
     setup_logger,
     weather_settings,
 )
+from sample_python_app.services import fetch_astronomical_data_from_api
 
 logger = setup_logger(mode="silent")
 
