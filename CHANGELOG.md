@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.9.1 (2026-02-14)
+
+### Bug Fixes
+
+- Simplify logger configuration by removing unnecessary lambda functions
+  ([`f0f5276`](https://github.com/milsman2/python-app-template/commit/f0f52767908a2dcbc8038b8b03a2206f996c7d46))
+
+
 ## v1.9.0 (2026-02-14)
 
 ### Bug Fixes
