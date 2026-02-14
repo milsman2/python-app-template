@@ -12,6 +12,9 @@ on:
   workflow_dispatch:
 
 jobs:
+  cache:
+    uses: ./.github/workflows/cache-uv-build.yaml
+
   lint:
     uses: ./.github/workflows/ruff.yaml
 

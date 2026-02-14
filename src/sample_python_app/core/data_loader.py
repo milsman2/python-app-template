@@ -4,10 +4,10 @@ import httpx
 from pydantic import ValidationError
 
 from sample_python_app.core.logging import setup_logger
-from sample_python_app.models import WeatherGovFeature
+from sample_python_app.models import AstronomicalData, WeatherGovFeature
 
 
-def fetch_astronomical_data_from_api(lat: float, lon: float):
+def fetch_astronomical_data_from_api(lat: float, lon: float) -> AstronomicalData:
     """Fetch and validate astronomical data from weather.gov API for given coordinates.
 
     Args:
