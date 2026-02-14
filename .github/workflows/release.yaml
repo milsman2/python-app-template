@@ -1,10 +1,6 @@
-name: UV - Release
-
+name: UV - Release (Reusable)
 on:
-  push:
-    branches:
-      - main
-
+  workflow_call:
 jobs:
   Semantic-Release:
     runs-on: ubuntu-latest
@@ -19,7 +15,7 @@ jobs:
       dist_artifacts_name: dist
       dist_artifacts_dir: dist
       lock_file_artifact: uv.lock
-      UV_VERSION: '0.10.2'
+      UV_VERSION: '>=0.10.2'
       PYTHON_VERSION: '3.13'
       GITHUB_ACTIONS_AUTHOR_NAME: github-actions
       GITHUB_ACTIONS_AUTHOR_EMAIL: actions@users.noreply.github.com
@@ -28,11 +24,9 @@ jobs:
         uses: actions/checkout@v6
         with:
           ref: ${{ github.ref_name }}
-
       - name: Setup | Force release branch to be at workflow sha
         run: |
           git reset --hard ${{ github.sha }}
-
       - name: Restore global uv cache
         id: cache-restore
         uses: actions/cache/restore@v5
@@ -44,31 +38,25 @@ jobs:
           key: uv-main-${{ env.UV_VERSION }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('pyproject.toml', 'uv.lock') }}
           restore-keys: |
             uv-main-
-
       - name: Install uv
         uses: astral-sh/setup-uv@v7
         with:
           version: ${{ env.UV_VERSION }}
           python-version: ${{ env.PYTHON_VERSION }}
           enable-cache: false
-
       - name: Action | Semantic Version Release
         id: release
         uses: python-semantic-release/python-semantic-release@v10.5.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          git_committer_name: 'github-actions'
-          git_committer_email: 'actions@users.noreply.github.com'
-
-      - name: Publish | Upload to GitHub Release Assets
+      - name: Action | Create GitHub Release
         uses: python-semantic-release/publish-action@v10.5.3
         if: steps.release.outputs.released == 'true'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.release.outputs.tag }}
-
       - name: Save uv caches
-        if: steps.cache-restore.outputs.cache-hit != 'true'
+        if: always()
         uses: actions/cache/save@v5
         with:
           path: |

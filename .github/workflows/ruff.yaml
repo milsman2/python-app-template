@@ -1,9 +1,7 @@
-name: UV Build - Ruff Lint
+name: Ruff Lint (Reusable)
 
 on:
-  pull_request:
-    branches:
-      - '*'
+  workflow_call:
 
 jobs:
   ruff-lint:
@@ -11,7 +9,7 @@ jobs:
     permissions:
       contents: read
     env:
-      UV_VERSION: '0.10.2'
+      UV_VERSION: '>=0.10.2'
       PYTHON_VERSION: '3.13'
 
     steps:
@@ -46,7 +44,7 @@ jobs:
           uv run ruff check tests
 
       - name: Save uv caches
-        if: steps.cache-restore.outputs.cache-hit != 'true'
+        if: always()
         uses: actions/cache/save@v5
         with:
           path: |
