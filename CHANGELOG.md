@@ -2,6 +2,26 @@
 
 <!-- version list -->
 
+## v1.10.0 (2026-02-14)
+
+### Bug Fixes
+
+- Add logging for input coordinates in run_app function
+  ([`c5bb322`](https://github.com/milsman2/python-app-template/commit/c5bb3225a1f1cd516fc14c41f73f96249c54af65))
+
+- Remove unused imports from display.py
+  ([`874aa35`](https://github.com/milsman2/python-app-template/commit/874aa3574ce265179b6b04f1146dda39ea4f0a22))
+
+- Update CI/CD workflows to ensure proper execution conditions for Docker and Trivy scan
+  ([`ecd46f1`](https://github.com/milsman2/python-app-template/commit/ecd46f1889ff265faddf330a5c6e3b8caaebff64))
+
+### Features
+
+- Implement CI/CD pipeline with linting, testing, and release workflows; enhance display
+  functionality with rich formatting
+  ([`5590ee9`](https://github.com/milsman2/python-app-template/commit/5590ee922c9ada56aad2131d3865f60a4d3665e1))
+
+
 ## v1.9.1 (2026-02-14)
 
 ### Bug Fixes
