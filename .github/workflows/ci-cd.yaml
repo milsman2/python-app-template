@@ -17,9 +17,10 @@ jobs:
 
   lint:
     uses: ./.github/workflows/ruff.yaml
+    needs: cache
 
   test:
-    needs: lint
+    needs: [lint, cache]
     uses: ./.github/workflows/pytest.yaml
 
   docker:
