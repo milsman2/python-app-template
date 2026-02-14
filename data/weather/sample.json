@@ -1,0 +1,106 @@
+{
+  "@context": [
+    "https://geojson.org/geojson-ld/geojson-context.jsonld",
+    {
+      "@version": "1.1",
+      "wx": "https://api.weather.gov/ontology#",
+      "s": "https://schema.org/",
+      "geo": "http://www.opengis.net/ont/geosparql#",
+      "unit": "http://codes.wmo.int/common/unit/",
+      "@vocab": "https://api.weather.gov/ontology#",
+      "geometry": {
+        "@id": "s:GeoCoordinates",
+        "@type": "geo:wktLiteral"
+      },
+      "city": "s:addressLocality",
+      "state": "s:addressRegion",
+      "distance": {
+        "@id": "s:Distance",
+        "@type": "s:QuantitativeValue"
+      },
+      "bearing": {
+        "@type": "s:QuantitativeValue"
+      },
+      "value": {
+        "@id": "s:value"
+      },
+      "unitCode": {
+        "@id": "s:unitCode",
+        "@type": "@id"
+      },
+      "forecastOffice": {
+        "@type": "@id"
+      },
+      "forecastGridData": {
+        "@type": "@id"
+      },
+      "publicZone": {
+        "@type": "@id"
+      },
+      "county": {
+        "@type": "@id"
+      }
+    }
+  ],
+  "id": "https://api.weather.gov/points/29.8253,-95.4546",
+  "type": "Feature",
+  "geometry": {
+    "type": "Point",
+    "coordinates": [-95.4546, 29.8253]
+  },
+  "properties": {
+    "@id": "https://api.weather.gov/points/29.8253,-95.4546",
+    "@type": "wx:Point",
+    "cwa": "HGX",
+    "type": "land",
+    "forecastOffice": "https://api.weather.gov/offices/HGX",
+    "gridId": "HGX",
+    "gridX": 60,
+    "gridY": 97,
+    "forecast": "https://api.weather.gov/gridpoints/HGX/60,97/forecast",
+    "forecastHourly": "https://api.weather.gov/gridpoints/HGX/60,97/forecast/hourly",
+    "forecastGridData": "https://api.weather.gov/gridpoints/HGX/60,97",
+    "observationStations": "https://api.weather.gov/gridpoints/HGX/60,97/stations",
+    "relativeLocation": {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [-95.488497, 29.790849]
+      },
+      "properties": {
+        "city": "Hilshire Village",
+        "state": "TX",
+        "distance": {
+          "unitCode": "wmoUnit:m",
+          "value": 5036.9691995333
+        },
+        "bearing": {
+          "unitCode": "wmoUnit:degree_(angle)",
+          "value": 40
+        }
+      }
+    },
+    "forecastZone": "https://api.weather.gov/zones/forecast/TXZ213",
+    "county": "https://api.weather.gov/zones/county/TXC201",
+    "fireWeatherZone": "https://api.weather.gov/zones/fire/TXZ213",
+    "timeZone": "America/Chicago",
+    "radarStation": "KHGX",
+    "astronomicalData": {
+      "sunrise": "2026-02-14T07:00:41-06:00",
+      "sunset": "2026-02-14T18:11:11-06:00",
+      "transit": "2026-02-14T12:35:56-06:00",
+      "civilTwilightBegin": "2026-02-14T06:37:31-06:00",
+      "civilTwilightEnd": "2026-02-14T18:34:21-06:00",
+      "nauticalTwilightBegin": "2026-02-14T06:09:27-06:00",
+      "nauticalTwilightEnd": "2026-02-14T19:02:25-06:00",
+      "astronomicalTwilightBegin": "2026-02-14T05:41:37-06:00",
+      "astronomicalTwilightEnd": "2026-02-14T19:30:15-06:00"
+    },
+    "nwr": {
+      "transmitter": "KGG68",
+      "sameCode": "048201",
+      "areaBroadcast": "https://api.weather.gov/radio/KGG68/broadcast",
+      "pointBroadcast": "https://api.weather.gov/points/29.8253,-95.4546/radio"
+    }
+  }
+}
