@@ -1,9 +1,10 @@
-"""
-Main entry point for weather.gov astronomical data display.
+"""Main entry point for weather.gov astronomical data display.
+
 Orchestrates loading and displaying astronomical data.
 """
 
 import json
+import sys
 
 import httpx
 from pydantic import ValidationError
@@ -11,26 +12,30 @@ from pydantic import ValidationError
 from sample_python_app.core import (
     display_astronomical_data,
     fetch_astronomical_data_from_api,
+    setup_logger,
     weather_settings,
 )
 
+logger = setup_logger(mode="silent")
+
 
 def run_app():
+    """Run the application."""
     lat, lon = weather_settings.LOCATION.latitude, weather_settings.LOCATION.longitude
     try:
         astro = fetch_astronomical_data_from_api(lat, lon)
     except httpx.HTTPStatusError as e:
-        print(f"HTTP error: {e.response.status_code} {e.response.reason_phrase}")
-        return
+        logger.error(f"HTTP status error: {e}")
+        sys.exit(1)
     except httpx.RequestError as e:
-        print(f"Network error: {e}")
-        return
+        logger.error(f"Network error: {e}")
+        sys.exit(1)
     except ValidationError as e:
-        print(f"Validation error: {e}")
-        return
+        logger.error(f"Validation error: {e}")
+        sys.exit(1)
     except json.JSONDecodeError as e:
-        print(f"JSON decode error: {e}")
-        return
+        logger.error(f"JSON decode error: {e}")
+        sys.exit(1)
     display_astronomical_data(astro)
 
 

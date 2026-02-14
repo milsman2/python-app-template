@@ -1,4 +1,4 @@
-name: UV Build - Pylint Lint
+name: UV Build - Ruff Lint
 
 on:
   pull_request:
@@ -6,7 +6,7 @@ on:
       - '*'
 
 jobs:
-  pylint-lint:
+  ruff-lint:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -40,10 +40,10 @@ jobs:
       - name: Install dependencies
         run: uv sync
 
-      - name: Run pylint
+      - name: Run Ruff
         run: |
-          uv run -- pylint src
-          uv run -- pylint tests
+          uv run ruff check src
+          uv run ruff check tests
 
       - name: Save uv caches
         if: steps.cache-restore.outputs.cache-hit != 'true'

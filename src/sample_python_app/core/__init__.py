@@ -1,6 +1,4 @@
-"""
-Export core modules for use in other modules.
-"""
+"""Export core modules for use in other modules."""
 
 from sample_python_app.core.config import settings, weather_settings
 from sample_python_app.core.data_loader import fetch_astronomical_data_from_api

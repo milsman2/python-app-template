@@ -1,6 +1,4 @@
-"""
-Handles loading and validating weather.gov astronomical data from file.
-"""
+"""Handles loading and validating weather.gov astronomical data from file."""
 
 import httpx
 from pydantic import ValidationError
@@ -10,6 +8,20 @@ from sample_python_app.models import WeatherGovFeature
 
 
 def fetch_astronomical_data_from_api(lat: float, lon: float):
+    """Fetch and validate astronomical data from weather.gov API for given coordinates.
+
+    Args:
+        lat (float): Latitude of the location.
+        lon (float): Longitude of the location.
+
+    Returns:
+        AstronomicalData: Validated astronomical data from API response.
+
+    Raises:
+        ValidationError: If the API response fails validation.
+        httpx.HTTPError: If the API request fails.
+
+    """
     logger = setup_logger(mode="silent")
     url = f"https://api.weather.gov/points/{lat},{lon}"
     headers = {"User-Agent": "(myweatherapp.com, contact@myweatherapp.com)"}
