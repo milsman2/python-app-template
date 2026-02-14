@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.11.1 (2026-02-14)
+
+### Bug Fixes
+
+- Reorganize service layer and move data loading logic to separate module
+  ([`ae235a4`](https://github.com/milsman2/python-app-template/commit/ae235a4059b8e1788b09b46a70ae75cbe2129f9c))
+
+
 ## v1.11.0 (2026-02-14)
 
 ### Bug Fixes
