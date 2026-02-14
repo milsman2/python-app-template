@@ -26,9 +26,7 @@ def setup_logger(mode="normal"):
     logger.remove()
     if mode == "silent":
         # Log errors to the console even in silent mode
-        logger.add(
-            sink=lambda msg: sys.stdout.write(msg), format=log_format, level="ERROR"
-        )
+        logger.add(sys.stdout, format=log_format, level="ERROR")
         logger.add(
             "app.log",
             format=log_format,
@@ -38,9 +36,7 @@ def setup_logger(mode="normal"):
             compression="zip",
         )
     else:
-        logger.add(
-            sink=lambda msg: sys.stdout.write(msg), format=log_format, level="INFO"
-        )
+        logger.add(sys.stdout, format=log_format, level="INFO")
         logger.add(
             "app.log",
             format=log_format,
