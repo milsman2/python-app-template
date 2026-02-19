@@ -21,9 +21,11 @@ class WeatherSettings(BaseSettings):
 class Settings(BaseSettings):
     """Application settings display."""
 
+    TEST_MODE: bool = False
     APP_NAME: str = "python-app-template"
     DATE_FORMAT: str = "%Y-%m-%d %I:%M:%S %p %Z"
     TIMEZONE: str = "America/Chicago"
+    PROMETHEUS_METRICS_PORT: int = 8000
 
     model_config = SettingsConfigDict(
         env_file=".env",

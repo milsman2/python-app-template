@@ -1,44 +1,19 @@
-"""Main entry point for weather.gov astronomical data display.
+"""Main entry point for the sample Python app.
 
-Orchestrates loading and displaying astronomical data.
+Starts the Prometheus metrics server and the scheduler.
 """
 
-import json
-import sys
-
-import httpx
-from pydantic import ValidationError
-
-from sample_python_app.core import (
-    display_astronomical_data,
-    setup_logger,
-    weather_settings,
-)
-from sample_python_app.services import fetch_astronomical_data_from_api
-
-logger = setup_logger(mode="silent")
+from sample_python_app.app import start_metrics_server, start_scheduler
+from sample_python_app.core import settings
 
 
-def run_app():
-    """Run the application."""
-    lat, lon = weather_settings.LOCATION.latitude, weather_settings.LOCATION.longitude
-    logger.info(f"Using input latitude: {lat}, longitude: {lon}")
-    try:
-        astro = fetch_astronomical_data_from_api(lat, lon)
-    except httpx.HTTPStatusError as e:
-        logger.error(f"HTTP status error: {e}")
-        sys.exit(1)
-    except httpx.RequestError as e:
-        logger.error(f"Network error: {e}")
-        sys.exit(1)
-    except ValidationError as e:
-        logger.error(f"Validation error: {e}")
-        sys.exit(1)
-    except json.JSONDecodeError as e:
-        logger.error(f"JSON decode error: {e}")
-        sys.exit(1)
-    display_astronomical_data(astro)
+def run_app() -> None:
+    """Start the metrics server and scheduler."""
+    if settings.TEST_MODE:
+        return
+    start_metrics_server(port=settings.PROMETHEUS_METRICS_PORT)
+    start_scheduler()
 
 
-if __name__ == "__main__":  # pragma: no cover
+if __name__ == "__main__":
     run_app()
