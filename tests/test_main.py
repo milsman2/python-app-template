@@ -3,23 +3,29 @@
 import subprocess
 import sys
 
-from sample_python_app import main
+from sample_python_app.app.runner import fetch_astro_data
 
 
 def test_main_subprocess():
     """Test main subprocess execution."""
+    import os
+
+    env = os.environ.copy()
+    env["TEST_MODE"] = "1"
     result = subprocess.run(
         [sys.executable, "-m", "src.sample_python_app.main"],
         capture_output=True,
         text=True,
         check=True,
+        env=env,
     )
     assert result.returncode == 0
 
 
 def test_main_runs(capfd):
     """Test main run_app output."""
-    main.run_app()
+    # Call fetch_astro_data directly to test output
+    fetch_astro_data()
     out, _ = capfd.readouterr()
     assert "Sunrise" in out
     assert "Sunset" in out

@@ -8,7 +8,7 @@ from pathlib import Path
 
 import httpx
 
-from sample_python_app.main import run_app
+from sample_python_app.app.scheduler import start_scheduler
 from sample_python_app.models import WeatherGovFeature
 
 
@@ -20,7 +20,8 @@ def test_display_with_sample_file(capsys):
     model = WeatherGovFeature.model_validate(data)
     astro = model.properties.astronomical_data
     assert astro.sunrise is not None
-    run_app()
+    # Use scheduler in test mode to avoid infinite loop
+    start_scheduler(test_mode=True)
     out = capsys.readouterr().out
     assert "Sunrise" in out
     assert "Sunset" in out
@@ -38,7 +39,8 @@ def test_display_with_real_api(capsys):
     model = WeatherGovFeature.model_validate(data)
     astro = model.properties.astronomical_data
     assert astro.sunrise is not None
-    run_app()
+    # Use scheduler in test mode to avoid infinite loop and NameError
+    start_scheduler(test_mode=True)
     out = capsys.readouterr().out
     assert "Sunrise" in out
     assert "Sunset" in out
