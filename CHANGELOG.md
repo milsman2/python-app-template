@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.12.0 (2026-02-19)
+
+### Chores
+
+- Update Trivy action to v0.34.0 and bump pydantic-settings version to 2.13.0
+  ([`50e2749`](https://github.com/milsman2/python-app-template/commit/50e2749338acd3f76118cc991ddfcc86aa105222))
+
+### Features
+
+- Refactor application structure and integrate Prometheus metrics
+  ([`041018a`](https://github.com/milsman2/python-app-template/commit/041018a28976b48a0c7a88720740d6c28506319d))
+
+
 ## v1.11.1 (2026-02-14)
 
 ### Bug Fixes
