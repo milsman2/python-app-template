@@ -2,6 +2,7 @@
 
 from zoneinfo import ZoneInfo
 
+from pydantic import SecretStr
 from pydantic_extra_types.coordinate import Coordinate, Latitude, Longitude
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -26,6 +27,7 @@ class Settings(BaseSettings):
     DATE_FORMAT: str = "%Y-%m-%d %I:%M:%S %p %Z"
     TIMEZONE: str = "America/Chicago"
     PROMETHEUS_METRICS_PORT: int = 8000
+    GF_SECURITY_ADMIN_PASSWORD: SecretStr = SecretStr("admin")
 
     model_config = SettingsConfigDict(
         env_file=".env",
