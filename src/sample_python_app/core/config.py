@@ -2,9 +2,9 @@
 
 from zoneinfo import ZoneInfo
 
+from pydantic import SecretStr
 from pydantic_extra_types.coordinate import Coordinate, Latitude, Longitude
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic import SecretStr
 
 
 class WeatherSettings(BaseSettings):
