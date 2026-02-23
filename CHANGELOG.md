@@ -2,6 +2,19 @@
 
 <!-- version list -->
 
+## v1.13.0 (2026-02-23)
+
+### Features
+
+- Add Docker support with docker-compose and Prometheus integration
+  ([`8fb03ae`](https://github.com/milsman2/python-app-template/commit/8fb03aeabad5384e6919c2e407707f114a914405))
+
+### Refactoring
+
+- Reorganize import statements in config.py
+  ([`710a0b7`](https://github.com/milsman2/python-app-template/commit/710a0b7bf2b3c8311f4df380fe1256b541d90235))
+
+
 ## v1.12.0 (2026-02-19)
 
 ### Chores
