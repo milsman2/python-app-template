@@ -1,0 +1,74 @@
+# ===============================
+# Python bytecode / caches
+# ===============================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# ===============================
+# Virtual environments
+# ===============================
+.venv/
+venv/
+ENV/
+env/
+
+# ===============================
+# Test / coverage artifacts
+# ===============================
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+
+# ===============================
+# Build / packaging outputs
+# ===============================
+build/
+dist/
+*.egg-info/
+
+# ===============================
+# Editor / OS junk
+# ===============================
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# ===============================
+# Git / CI
+# ===============================
+.git/
+.gitignore
+.github/
+
+# ===============================
+# Logs
+# ===============================
+*.log
+
+# ===============================
+# Local tooling caches
+# ===============================
+.ruff_cache/
+.mypy_cache/
+.isort_cache/
+
+# ===============================
+# Node (just in case)
+# ===============================
+node_modules/
+
+# ===============================
+# Docker files you DON'T need inside image
+# ===============================
+docker-compose.yml
+
+# ===============================
+# IMPORTANT: DO NOT IGNORE THESE
+# ===============================
+# pyproject.toml
+# uv.lock
+# src/
