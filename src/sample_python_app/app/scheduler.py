@@ -1,39 +1,45 @@
-"""Scheduler module for periodic astronomical data fetch.
+"""Scheduler module to fetch astronomical data every 24 hours."""
 
-Initializes and runs the APScheduler job every 24 hours.
-"""
-
-from datetime import datetime
+import signal
+import sys
+from datetime import UTC, datetime
 
 from apscheduler.schedulers.blocking import BlockingScheduler
+from loguru import logger
 
-from sample_python_app.app.runner import fetch_astro_data
+from sample_python_app.app.runner import fetcher
 from sample_python_app.core.logging import setup_logger
-
-logger = setup_logger("normal")
 
 
 def start_scheduler(test_mode: bool = False) -> None:
-    """Start the scheduler to run the astronomical data fetch every 24 hours.
+    """Start the scheduler to fetch astronomical data every 24 hours."""
+    setup_logger("normal")
+    scheduler_logger = logger.bind(component="scheduler")
 
-    In test_mode, run the scheduled job once and do not block.
-    """
-    scheduler = BlockingScheduler()
+    if test_mode:
+        fetcher.fetch(exit_on_error=False)
+        return
+
+    scheduler = BlockingScheduler(timezone="UTC")
+
+    def shutdown(signum, frame):
+        del frame
+        scheduler_logger.debug("Shutdown signal received", signal=signum)
+        scheduler.shutdown(wait=True)
+        sys.exit(0)
+
+    signal.signal(signal.SIGTERM, shutdown)
+    signal.signal(signal.SIGINT, shutdown)
+
     scheduler.add_job(
-        fetch_astro_data,
+        fetcher.fetch,
         trigger="interval",
         hours=24,
-        next_run_time=datetime.now(),
+        next_run_time=datetime.now(UTC),
+        misfire_grace_time=3600,
+        coalesce=True,
+        max_instances=1,
     )
-    logger.info("Scheduled astronomical fetch every 24 hours")
-    if test_mode:
-        # Run the job once for testing, do not block
-        job = scheduler.get_jobs()[0]
-        job.func()
-        logger.info("Ran scheduled job once in test mode")
-        return
-    try:
-        scheduler.start()
-    except (KeyboardInterrupt, SystemExit):
-        logger.info("Scheduler stopped")
-        scheduler.shutdown()
+
+    scheduler_logger.info("Scheduler started")
+    scheduler.start()
