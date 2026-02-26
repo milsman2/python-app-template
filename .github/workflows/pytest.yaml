@@ -9,7 +9,7 @@ jobs:
     permissions:
       contents: read
     env:
-      UV_VERSION: '>=0.10.2'
+      UV_VERSION: '>=0.10.6'
       PYTHON_VERSION: '3.13'
     steps:
       - name: Checkout repository
