@@ -2,6 +2,23 @@
 
 <!-- version list -->
 
+## v1.14.1 (2026-02-27)
+
+### Bug Fixes
+
+- Add permissions for auto-merge job to allow write access to pull requests
+  ([`6574e36`](https://github.com/milsman2/python-app-template/commit/6574e36a147c30f930e1ea4c9d1cf50458d9e280))
+
+- Rename workflow and simplify head_branch handling in auto-merge script
+  ([`648094d`](https://github.com/milsman2/python-app-template/commit/648094dae9b220177adfef98d9f09e25299516b8))
+
+- Update dependencies for ruff and uv to latest versions
+  ([`1cc033e`](https://github.com/milsman2/python-app-template/commit/1cc033e1e529a2eaa23d6accace0de01e727f5e7))
+
+- Update scheduler to fetch data every 5 minutes instead of 24 hours
+  ([`28d14f7`](https://github.com/milsman2/python-app-template/commit/28d14f76f54ee51e8a4e80c571e9710c9667fcdc))
+
+
 ## v1.14.0 (2026-02-27)
 
 ### Bug Fixes
