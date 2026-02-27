@@ -20,14 +20,14 @@ dependencies = [
     "pylint-pydantic>=0.4.1",
     "pytest>=9.0.2",
     "rich>=14.3.2",
-    "ruff>=0.15.1",
+    "ruff>=0.15.2",
 ]
 
 [project.optional-dependencies]
-build = ["uv >= 0.10.4"]
+build = ["uv >= 0.10.6"]
 
 [build-system]
-requires = ["uv_build >= 0.10.4"]
+requires = ["uv_build >= 0.10.6"]
 build-backend = "uv_build"
 
 [project.scripts]
