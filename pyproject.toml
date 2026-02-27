@@ -24,14 +24,15 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-build = ["uv >= 0.10.2"]
+build = ["uv >= 0.10.4"]
 
 [build-system]
-requires = ["uv_build >= 0.10.2"]
+requires = ["uv_build >= 0.10.4"]
 build-backend = "uv_build"
 
 [project.scripts]
 sample-python-app = "sample_python_app.main:run_app"
+checks = "sample_python_app.scripts:run_checks"
 
 [tool.semantic_release]
 build_command = """

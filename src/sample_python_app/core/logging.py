@@ -35,6 +35,16 @@ def setup_logger(mode="normal"):
             retention="10 days",
             compression="zip",
         )
+    elif mode == "debug":
+        logger.add(sys.stdout, format=log_format, level="DEBUG")
+        logger.add(
+            "app.log",
+            format=log_format,
+            level="DEBUG",
+            rotation="1 MB",
+            retention="10 days",
+            compression="zip",
+        )
     else:
         logger.add(sys.stdout, format=log_format, level="INFO")
         logger.add(
