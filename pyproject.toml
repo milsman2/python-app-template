@@ -32,6 +32,7 @@ build-backend = "uv_build"
 
 [project.scripts]
 sample-python-app = "sample_python_app.main:run_app"
+checks = "sample_python_app.scripts:run_checks"
 
 [tool.semantic_release]
 build_command = """

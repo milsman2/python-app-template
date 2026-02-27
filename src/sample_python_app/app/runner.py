@@ -33,13 +33,11 @@ class AstroFetcher:
         self._last_displayed_day: str | None = None
 
     def fetch(self, *, exit_on_error: bool = True) -> None:
-        """Fetch astronomical data and display if it is new day's data."""
+        """Fetch astronomical data and display if not already displayed today."""
         lat = weather_settings.LOCATION.latitude
         lon = weather_settings.LOCATION.longitude
         logger.info(f"Using latitude={lat} longitude={lon}")
-
         start = time.time()
-
         try:
             astro = fetch_astronomical_data_from_api(lat, lon)
             FETCH_COUNTER.inc()
@@ -54,15 +52,16 @@ class AstroFetcher:
             return
         finally:
             FETCH_DURATION.observe(time.time() - start)
-
-        # Only display once per day
         today_str = date.today().isoformat()
         if self._last_displayed_day != today_str:
             display_astronomical_data(astro)
             self._last_displayed_day = today_str
 
+    def reset_display(self):
+        """Reset the last displayed day so display will occur again."""
+        self._last_displayed_day = None
+
     def _handle_fetch_error(self, exc: Exception, exit_on_error: bool) -> None:
-        """Handle errors during the fetch operation."""
         FETCH_ERRORS.inc()
         if isinstance(exc, httpx.HTTPStatusError):
             logger.error("HTTP status error: %s", exc)
@@ -74,10 +73,8 @@ class AstroFetcher:
             logger.error("JSON decode error: %s", exc)
         else:
             logger.exception("Unexpected error")
-
         if exit_on_error:
             raise SystemExit(1) from exc
-
         raise AppError(str(exc)) from exc
 
 

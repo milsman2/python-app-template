@@ -3,7 +3,7 @@
 import subprocess
 import sys
 
-from sample_python_app.app.runner import fetch_astro_data
+from sample_python_app.app.runner import fetcher
 
 
 def test_main_subprocess():
@@ -25,7 +25,10 @@ def test_main_subprocess():
 def test_main_runs(capfd):
     """Test main run_app output."""
     # Call fetch_astro_data directly to test output
-    fetch_astro_data()
+    # Ensure display will occur during test
+    if hasattr(fetcher, "reset_display"):
+        fetcher.reset_display()
+    fetcher.fetch()
     out, _ = capfd.readouterr()
     assert "Sunrise" in out
     assert "Sunset" in out
