@@ -1,4 +1,4 @@
-name: Auto-merge on successful release pipeline
+name: Auto-merge reusable workflow
 
 on:
   workflow_call:
@@ -21,15 +21,8 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            // Support both automatic workflow_run triggers and explicit workflow_call inputs.
-            const run = context.payload.workflow_run;
-            let head_branch = '';
-            if (run && run.head_branch) {
-              head_branch = run.head_branch;
-            } else if (context.payload && context.payload.inputs && context.payload.inputs.head_branch) {
-              head_branch = context.payload.inputs.head_branch;
-            }
-
+            // Use the provided input; caller should supply `head_branch` when invoking.
+            const head_branch = "${{ inputs.head_branch }}";
             const owner = context.repo.owner;
             const repo = context.repo.repo;
 
@@ -40,7 +33,6 @@ jobs:
 
             core.info(`Auto-merge triggered for branch: ${head_branch}`);
 
-            // Find an open PR whose head ref matches the branch
             const prs = await github.rest.pulls.list({
               owner,
               repo,
