@@ -37,7 +37,7 @@ def start_scheduler(test_mode: bool = False) -> None:
     scheduler.add_job(
         fetcher.fetch,
         trigger="interval",
-        hours=24,
+        minutes=5,
         next_run_time=datetime.now(UTC),
         misfire_grace_time=3600,
         coalesce=True,
