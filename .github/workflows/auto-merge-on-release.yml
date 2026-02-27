@@ -1,0 +1,75 @@
+name: Auto-merge reusable workflow
+
+on:
+  workflow_call:
+    inputs:
+      head_branch:
+        description: 'Branch name to find PR for'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Auto-merge matching PR
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // Use the provided input; caller should supply `head_branch` when invoking.
+            const head_branch = "${{ inputs.head_branch }}";
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            if (!head_branch) {
+              core.info('No head_branch provided; nothing to do.');
+              return;
+            }
+
+            core.info(`Auto-merge triggered for branch: ${head_branch}`);
+
+            const prs = await github.rest.pulls.list({
+              owner,
+              repo,
+              head: `${owner}:${head_branch}`,
+              state: 'open',
+            });
+
+            if (!prs.data || prs.data.length === 0) {
+              core.info(`No open pull request found for branch ${head_branch}`);
+              return;
+            }
+
+            const pr = prs.data[0];
+
+            if (pr.draft) {
+              core.info(`Pull request #${pr.number} is a draft; skipping merge.`);
+              return;
+            }
+
+            try {
+              const res = await github.rest.pulls.merge({
+                owner,
+                repo,
+                pull_number: pr.number,
+                merge_method: 'merge',
+                commit_title: head_branch,
+                commit_message: '',
+              });
+
+              if (res.data.merged) {
+                core.info(`Successfully merged PR #${pr.number} (branch ${head_branch}).`);
+              } else {
+                core.info(`Merge attempt returned: ${JSON.stringify(res.data)}`);
+              }
+            } catch (err) {
+              core.setFailed(`Failed to merge PR #${pr.number}: ${err}`);
+            }
+
+      - name: Done
+        run: echo "auto-merge finished"
