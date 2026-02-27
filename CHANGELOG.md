@@ -2,6 +2,22 @@
 
 <!-- version list -->
 
+## v1.14.0 (2026-02-27)
+
+### Bug Fixes
+
+- Update dependencies
+  ([`6d75cf8`](https://github.com/milsman2/python-app-template/commit/6d75cf8f6e62a41bc7bf909d3dc5ddd311990f04))
+
+### Features
+
+- Add run_checks script and improve scheduling logic for display
+  ([`d03dbc8`](https://github.com/milsman2/python-app-template/commit/d03dbc8c0884d0f525bfa86faaeeb6aceb322ded))
+
+- Refactor astronomical data fetching and display logic
+  ([`55d92e8`](https://github.com/milsman2/python-app-template/commit/55d92e8817457378ef1bb1ae0eef20c5298986df))
+
+
 ## v1.13.0 (2026-02-23)
 
 ### Features
