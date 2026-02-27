@@ -47,6 +47,9 @@ jobs:
     needs: release
     if: needs.release.result == 'success'
     uses: ./.github/workflows/auto-merge-on-release.yml
+    permissions:
+      contents: write
+      pull-requests: write
     with:
       head_branch: ${{ github.ref_name }}
     secrets: inherit
