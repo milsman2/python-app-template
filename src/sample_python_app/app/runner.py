@@ -3,7 +3,6 @@
 Handles fetching, validation, and display of astronomical data.
 """
 
-# app/runner.py
 import json
 import time
 from datetime import date
@@ -19,7 +18,10 @@ from sample_python_app.core import (
     weather_settings,
 )
 from sample_python_app.exceptions import AppError
-from sample_python_app.services import fetch_astronomical_data_from_api
+from sample_python_app.services import (
+    fetch_astronomical_data_from_api,
+    fetch_hourly_forecast_from_api,
+)
 from sample_python_app.ui import display_astronomical_data
 
 logger = setup_logger("normal")
@@ -40,6 +42,7 @@ class AstroFetcher:
         start = time.time()
         try:
             astro = fetch_astronomical_data_from_api(lat, lon)
+            forecast = fetch_hourly_forecast_from_api(lat, lon)
             FETCH_COUNTER.inc()
         except (
             httpx.HTTPStatusError,
@@ -54,7 +57,7 @@ class AstroFetcher:
             FETCH_DURATION.observe(time.time() - start)
         today_str = date.today().isoformat()
         if self._last_displayed_day != today_str:
-            display_astronomical_data(astro)
+            display_astronomical_data(astro, forecast)
             self._last_displayed_day = today_str
 
     def reset_display(self):
