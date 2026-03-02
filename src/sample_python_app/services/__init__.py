@@ -1,5 +1,13 @@
 """Service layer for data loading and related business logic."""
 
-from sample_python_app.services.data_loader import fetch_astronomical_data_from_api
+from sample_python_app.services.data_loader import (
+    fetch_astronomical_data_from_api,
+    fetch_hourly_forecast_by_grid,
+    fetch_hourly_forecast_from_api,
+)
 
-__all__ = ["fetch_astronomical_data_from_api"]
+__all__ = [
+    "fetch_astronomical_data_from_api",
+    "fetch_hourly_forecast_from_api",
+    "fetch_hourly_forecast_by_grid",
+]

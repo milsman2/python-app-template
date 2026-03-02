@@ -17,7 +17,6 @@ def start_scheduler(test_mode: bool = False) -> None:
     scheduler_logger = logger.bind(component="scheduler")
 
     if test_mode:
-        # Ensure display will run in tests by clearing any previous state
         if hasattr(fetcher, "reset_display") and callable(fetcher.reset_display):
             fetcher.reset_display()
         fetcher.fetch(exit_on_error=False)
@@ -37,7 +36,7 @@ def start_scheduler(test_mode: bool = False) -> None:
     scheduler.add_job(
         fetcher.fetch,
         trigger="interval",
-        minutes=5,
+        minutes=1,
         next_run_time=datetime.now(UTC),
         misfire_grace_time=3600,
         coalesce=True,
