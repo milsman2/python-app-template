@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.15.0 (2026-03-02)
+
+### Features
+
+- Enhance astronomical data fetching and display with hourly forecast
+  ([`320f73b`](https://github.com/milsman2/python-app-template/commit/320f73b3aa327f400f8af399c0f925e2039d99b0))
+
+
 ## v1.14.1 (2026-02-27)
 
 ### Bug Fixes
