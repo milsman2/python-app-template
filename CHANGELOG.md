@@ -2,6 +2,17 @@
 
 <!-- version list -->
 
+## v1.17.0 (2026-03-04)
+
+### Features
+
+- Enhance display function with logging and summary of astronomical events
+  ([`8480bb9`](https://github.com/milsman2/python-app-template/commit/8480bb952537415b963bd6d251cdd8de3b0b60dc))
+
+- Refactor HTTP client usage and remove auto-merge workflow
+  ([`2678d77`](https://github.com/milsman2/python-app-template/commit/2678d7746f8f827913b822310e861102efbe5bc9))
+
+
 ## v1.16.0 (2026-03-04)
 
 ### Features
