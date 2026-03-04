@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.16.0 (2026-03-04)
+
+### Features
+
+- Update dependencies and refactor UI components for astronomical data display
+  ([`3c865fa`](https://github.com/milsman2/python-app-template/commit/3c865fa5f85ebe14ee5025d25a11d9b1a54fdd64))
+
+
 ## v1.15.0 (2026-03-02)
 
 ### Features
