@@ -20,7 +20,6 @@ def build_header_panel(
     The panel itself remains flexible and does not enforce a fixed height.
     """
     sunrise_local = astro.sunrise.astimezone(settings.tz)
-    # Render as three stacked lines: SYNTHWAVE, SUNRISE, then the date
     header_main = Figlet(font="slant", width=80).renderText("SYNTHWAVE")
     header_main_text = Text(header_main, style="bold magenta")
     header_sub = Figlet(font="small", width=80).renderText("SUNRISE")
@@ -32,10 +31,10 @@ def build_header_panel(
         Align.center(header_sub_text),
         Align.center(date_text),
     )
-    # Vertically center the header + date within the panel
-    return Panel(
+    header_panel = Panel(
         Align(content, align="center", vertical="middle"),
         title="[bold #ff6ec7]Synthwave[/bold #ff6ec7]",
         border_style="#ff00cc",
         padding=(0, 1),
     )
+    return header_panel
