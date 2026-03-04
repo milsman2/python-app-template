@@ -42,13 +42,3 @@ jobs:
     permissions:
       contents: write
     secrets: inherit
-
-  trigger-auto-merge:
-    needs: [release, docker-build-and-image-scan]
-    uses: milsman2/python-app-template/.github/workflows/auto-merge-on-release.yml@main
-    permissions:
-      contents: write
-      pull-requests: write
-    with:
-      head_branch: ${{ github.ref_name }}
-    secrets: inherit

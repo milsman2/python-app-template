@@ -11,6 +11,8 @@ class WeatherSettings(BaseSettings):
     """Weather-related settings."""
 
     LOCATION: Coordinate = Coordinate(Latitude(29.8469), Longitude(-95.4689))
+    WEATHER_API_BASE: str = "https://api.weather.gov"
+    WEATHER_HEADERS: dict = {"User-Agent": "(milsman2, milsman2@gmail.com)"}
 
     model_config = SettingsConfigDict(
         env_file=".env",
