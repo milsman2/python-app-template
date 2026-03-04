@@ -58,9 +58,3 @@ def synthwave_dashboard(
     )
 
     console.print(layout)
-    # Also print a plain-text summary of events so tests that capture
-    # stdout can assert on labels like "Sunrise" and "Astronomical Twilight Begin".
-    times = astro.formatted(settings.tz, "%I:%M %p %Z")
-    for name, val in times.items():
-        label = name.replace("_", " ").title()
-        console.print(f"{label}: {val}")

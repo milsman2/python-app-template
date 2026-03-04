@@ -22,17 +22,23 @@ from sample_python_app.services import (
     fetch_astronomical_data_from_api,
     fetch_hourly_forecast_from_api,
 )
+from sample_python_app.services.http_client import CustomHTTPClient
 from sample_python_app.ui import display_astronomical_data
 
 logger = setup_logger("normal")
 
 
 class AstroFetcher:
-    """Fetches astronomical data and displays only once per day."""
+    """Fetches astronomical data and displays only once per day.
 
-    def __init__(self) -> None:
-        """Initialize the AstroFetcher with no last displayed day."""
+    Accepts an `HTTPClient` to use for all outbound requests so the
+    runner can own the client's lifecycle and tests can inject mocks.
+    """
+
+    def __init__(self, client: CustomHTTPClient) -> None:
+        """Initialize the AstroFetcher with an optional HTTP client."""
         self._last_displayed_day: str | None = None
+        self.client = client
 
     def fetch(self, *, exit_on_error: bool = True) -> None:
         """Fetch astronomical data and display if not already displayed today."""
@@ -41,8 +47,8 @@ class AstroFetcher:
         logger.info(f"Using latitude={lat} longitude={lon}")
         start = time.time()
         try:
-            astro = fetch_astronomical_data_from_api(lat, lon)
-            forecast = fetch_hourly_forecast_from_api(lat, lon)
+            astro = fetch_astronomical_data_from_api(lat, lon, client=self.client)
+            forecast = fetch_hourly_forecast_from_api(lat, lon, client=self.client)
             FETCH_COUNTER.inc()
         except (
             httpx.HTTPStatusError,
@@ -64,6 +70,18 @@ class AstroFetcher:
         """Reset the last displayed day so display will occur again."""
         self._last_displayed_day = None
 
+    def close(self) -> None:
+        """Close the associated HTTP client if present.
+
+        This allows the runner to delegate shutdown responsibility to the
+        fetcher when it owns the client's lifecycle.
+        """
+        if hasattr(self, "client") and self.client is not None:
+            try:
+                self.client.close()
+            except Exception:
+                logger.exception("Error closing HTTP client in AstroFetcher")
+
     def _handle_fetch_error(self, exc: Exception, exit_on_error: bool) -> None:
         FETCH_ERRORS.inc()
         if isinstance(exc, httpx.HTTPStatusError):
@@ -81,4 +99,20 @@ class AstroFetcher:
         raise AppError(str(exc)) from exc
 
 
-fetcher = AstroFetcher()
+runner_client = CustomHTTPClient(
+    headers=weather_settings.WEATHER_HEADERS,
+    base_url=weather_settings.WEATHER_API_BASE,
+)
+fetcher = AstroFetcher(client=runner_client)
+
+
+def shutdown_runner() -> None:
+    """Shutdown helper to close long-lived resources owned by the runner.
+
+    Call this from application shutdown hooks to ensure the HTTP client is
+    properly closed and connections are released.
+    """
+    try:
+        fetcher.close()
+    except Exception:
+        logger.exception("Error during runner shutdown")
