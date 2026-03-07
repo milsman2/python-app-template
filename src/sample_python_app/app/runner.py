@@ -3,17 +3,12 @@
 Handles fetching, validation, and display of astronomical data.
 """
 
-import json
 import time
 from datetime import date
-
-import httpx
-from pydantic import ValidationError
 
 from sample_python_app.core import (
     FETCH_COUNTER,
     FETCH_DURATION,
-    FETCH_ERRORS,
     setup_logger,
     weather_settings,
 )
@@ -41,30 +36,31 @@ class AstroFetcher:
         self.client = client
 
     def fetch(self, *, exit_on_error: bool = True) -> None:
-        """Fetch astronomical data and display if not already displayed today."""
+        """Fetch astronomical data and display if not already shown today."""
         lat = weather_settings.LOCATION.latitude
         lon = weather_settings.LOCATION.longitude
-        logger.info(f"Using latitude={lat} longitude={lon}")
+
+        logger.info("Using latitude=%s longitude=%s", lat, lon)
+
         start = time.time()
+
         try:
             astro = fetch_astronomical_data_from_api(lat, lon, client=self.client)
             forecast = fetch_hourly_forecast_from_api(lat, lon, client=self.client)
             FETCH_COUNTER.inc()
-        except (
-            httpx.HTTPStatusError,
-            httpx.RequestError,
-            ValidationError,
-            json.JSONDecodeError,
-            AppError,
-        ) as exc:
-            self._handle_fetch_error(exc, exit_on_error)
+        except AppError as exc:
+            logger.error("Weather fetch failed: %s", exc)
+            if exit_on_error:
+                raise SystemExit(1) from None
             return
         finally:
             FETCH_DURATION.observe(time.time() - start)
-        today_str = date.today().isoformat()
-        if self._last_displayed_day != today_str:
+
+        today = date.today().isoformat()
+
+        if self._last_displayed_day != today:
             display_astronomical_data(astro, forecast)
-            self._last_displayed_day = today_str
+            self._last_displayed_day = today
 
     def reset_display(self):
         """Reset the last displayed day so display will occur again."""
@@ -81,22 +77,6 @@ class AstroFetcher:
                 self.client.close()
             except Exception:
                 logger.exception("Error closing HTTP client in AstroFetcher")
-
-    def _handle_fetch_error(self, exc: Exception, exit_on_error: bool) -> None:
-        FETCH_ERRORS.inc()
-        if isinstance(exc, httpx.HTTPStatusError):
-            logger.error("HTTP status error: %s", exc)
-        elif isinstance(exc, httpx.RequestError):
-            logger.error("Network error: %s", exc)
-        elif isinstance(exc, ValidationError):
-            logger.error("Validation error: %s", exc)
-        elif isinstance(exc, json.JSONDecodeError):
-            logger.error("JSON decode error: %s", exc)
-        else:
-            logger.exception("Unexpected error")
-        if exit_on_error:
-            raise SystemExit(1) from exc
-        raise AppError(str(exc)) from exc
 
 
 runner_client = CustomHTTPClient(

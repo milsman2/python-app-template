@@ -6,6 +6,9 @@ from sample_python_app.core.metrics import (
     FETCH_COUNTER,
     FETCH_DURATION,
     FETCH_ERRORS,
+    HTTP_REQUEST_DURATION,
+    HTTP_REQUEST_EXCEPTIONS,
+    HTTP_REQUESTS,
 )
 
 __all__ = [
@@ -16,4 +19,7 @@ __all__ = [
     "FETCH_COUNTER",
     "FETCH_DURATION",
     "FETCH_ERRORS",
+    "HTTP_REQUESTS",
+    "HTTP_REQUEST_EXCEPTIONS",
+    "HTTP_REQUEST_DURATION",
 ]
