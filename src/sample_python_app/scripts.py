@@ -9,13 +9,16 @@ import subprocess
 import sys
 from pathlib import Path
 
+from loguru import logger
+
 from sample_python_app.core.logging import setup_logger
 
 ROOT = Path(__file__).resolve().parents[2]
 
+setup_logger("DEBUG")
+
 
 def _run(cmd: list[str]) -> None:
-    logger = setup_logger("normal")
     logger.info(f"Running: {' '.join(cmd)}")
     subprocess.check_call(cmd, cwd=str(ROOT))
 
@@ -33,5 +36,4 @@ def run_checks() -> None:
     _run([py, "-m", "ruff", "check", ".", "--exit-zero"])
     _run([py, "-m", "coverage", "run", "-m", "pytest"])
 
-    logger = setup_logger("normal")
     logger.info("All checks completed.")

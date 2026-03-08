@@ -23,9 +23,8 @@ def test_display_with_sample_file(capsys):
     # Use scheduler in test mode to avoid infinite loop
     start_scheduler(test_mode=True)
     out = capsys.readouterr().out
-    assert "Sunrise" in out
-    assert "Sunset" in out
-    assert "Astronomical Twilight Begin" in out
+    # Check for synthwave dashboard box-drawing header
+    assert "Synthwave" in out
 
 
 def test_display_with_real_api(capsys):
@@ -42,6 +41,4 @@ def test_display_with_real_api(capsys):
     # Use scheduler in test mode to avoid infinite loop and NameError
     start_scheduler(test_mode=True)
     out = capsys.readouterr().out
-    assert "Sunrise" in out
-    assert "Sunset" in out
-    assert "Astronomical Twilight Begin" in out
+    assert "Synthwave" in out

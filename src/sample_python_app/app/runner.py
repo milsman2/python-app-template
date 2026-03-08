@@ -6,21 +6,21 @@ Handles fetching, validation, and display of astronomical data.
 import time
 from datetime import date
 
+from loguru import logger
+
 from sample_python_app.core import (
     FETCH_COUNTER,
     FETCH_DURATION,
-    setup_logger,
     weather_settings,
 )
 from sample_python_app.exceptions import AppError
 from sample_python_app.services import (
+    CustomHTTPClient,
     fetch_astronomical_data_from_api,
     fetch_hourly_forecast_from_api,
+    set_next_hour_forecast_temperature,
 )
-from sample_python_app.services.http_client import CustomHTTPClient
 from sample_python_app.ui import display_astronomical_data
-
-logger = setup_logger("normal")
 
 
 class AstroFetcher:
@@ -40,16 +40,17 @@ class AstroFetcher:
         lat = weather_settings.LOCATION.latitude
         lon = weather_settings.LOCATION.longitude
 
-        logger.info("Using latitude=%s longitude=%s", lat, lon)
+        logger.info("Using latitude={} longitude={}", lat, lon)
 
         start = time.time()
 
         try:
             astro = fetch_astronomical_data_from_api(lat, lon, client=self.client)
             forecast = fetch_hourly_forecast_from_api(lat, lon, client=self.client)
+            set_next_hour_forecast_temperature(forecast, location=f"{lat},{lon}")
             FETCH_COUNTER.inc()
         except AppError as exc:
-            logger.error("Weather fetch failed: %s", exc)
+            logger.error("Weather fetch failed: {}", exc)
             if exit_on_error:
                 raise SystemExit(1) from None
             return

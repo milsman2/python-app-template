@@ -3,16 +3,17 @@
 from __future__ import annotations
 
 import time
+from types import TracebackType
 from typing import Any
 
 import httpx
+from loguru import logger
 
 from sample_python_app.core import (
     HTTP_REQUEST_DURATION,
     HTTP_REQUEST_EXCEPTIONS,
     HTTP_REQUESTS,
 )
-from sample_python_app.core.logging import logger
 from sample_python_app.exceptions import HTTPTimeoutError, NetworkError, ServiceError
 
 JSONType = dict[str, object] | list[dict[str, object]]
@@ -79,7 +80,6 @@ class CustomHTTPClient:
             host=self._host_label,
             path=path,
         ).observe(duration)
-
         HTTP_REQUESTS.labels(
             method=method,
             host=self._host_label,
@@ -89,13 +89,21 @@ class CustomHTTPClient:
 
         full_url = str(response.request.url) if hasattr(response, "request") else url
         logger.info(
-            f"HTTP {method} {full_url} responded with status code "
-            f"{response.status_code}"
+            "HTTP {method} {full_url} responded with status code "
+            "{status_code} in {duration:.2f}s",
+            method=method,
+            full_url=full_url,
+            status_code=response.status_code,
+            duration=duration,
         )
 
         if not response.is_success:
-            logger.error(f"HTTP error status code: {response.status_code}")
-            logger.debug(f"HTTP error response body: {response.text}")
+            logger.error(
+                "HTTP error status code: {}," "response body: {}",
+                response.status_code,
+                response.text,
+            )
+            logger.debug("HTTP error response body: {}", response.text)
             raise ServiceError(
                 status_code=response.status_code,
                 body=response.text,
@@ -121,6 +129,11 @@ class CustomHTTPClient:
         """Support context manager entry."""
         return self
 
-    def __exit__(self, *args: Any) -> None:
+    def __exit__(
+        self,
+        exc_type: type[BaseException] | None,
+        exc_value: BaseException | None,
+        traceback: TracebackType | None,
+    ) -> None:
         """Support context manager exit by closing the client."""
         self.close()

@@ -5,20 +5,17 @@ Handles Prometheus metrics server startup and port checks.
 
 import socket
 
+from loguru import logger
 from prometheus_client import start_http_server
-
-from sample_python_app.core.logging import setup_logger
-
-logger = setup_logger("normal")
 
 
 def start_metrics_server(port: int) -> None:
     """Start the Prometheus metrics server on the specified port."""
     if _port_in_use(port):
-        logger.error(f"Port {port} already in use; metrics disabled")
+        logger.error("Port {} already in use; metrics disabled", port)
         return
 
-    logger.info(f"Starting Prometheus metrics on 0.0.0.0:{port}")
+    logger.info("Starting Prometheus metrics on 0.0.0.0:{}", port)
     start_http_server(port, addr="0.0.0.0")
 
 

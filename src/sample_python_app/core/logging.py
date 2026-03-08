@@ -12,45 +12,41 @@ log_format = (
 )
 
 
-def setup_logger(mode="normal"):
+def setup_logger(level: str = "INFO"):
     """Configure and return a Loguru logger instance.
 
     Args:
-        mode (str, optional): Logging mode. "normal" for console and file logging,
-            "silent" for file logging only. Defaults to "normal".
+        level (str, optional): Logging level for file outputs (e.g., "INFO", "DEBUG",
+            "ERROR"). Defaults to "INFO".
 
     Returns:
         logger: Configured Loguru logger instance.
 
     """
     logger.remove()
-    if mode == "silent":
-        # Log errors to the console even in silent mode
-        logger.add(sys.stdout, format=log_format, level="ERROR")
+    if level.upper() == "SILENT":
+        # Only add file handler at ERROR level (or could be level, but no stdout)
         logger.add(
             "app.log",
             format=log_format,
-            level="DEBUG",
-            rotation="1 MB",
-            retention="10 days",
-            compression="zip",
-        )
-    elif mode == "debug":
-        logger.add(sys.stdout, format=log_format, level="DEBUG")
-        logger.add(
-            "app.log",
-            format=log_format,
-            level="DEBUG",
+            level="ERROR",
             rotation="1 MB",
             retention="10 days",
             compression="zip",
         )
     else:
-        logger.add(sys.stdout, format=log_format, level="INFO")
+        logger.add(
+            sys.stdout,
+            format=log_format,
+            level=level,
+            backtrace=True,
+            diagnose=True,
+            enqueue=True,
+        )
         logger.add(
             "app.log",
             format=log_format,
-            level="DEBUG",
+            level=level,
             rotation="1 MB",
             retention="10 days",
             compression="zip",

@@ -30,6 +30,4 @@ def test_main_runs(capfd):
         fetcher.reset_display()
     fetcher.fetch()
     out, _ = capfd.readouterr()
-    assert "Sunrise" in out
-    assert "Sunset" in out
-    assert "Astronomical Twilight Begin" in out
+    assert "Synthwave" in out

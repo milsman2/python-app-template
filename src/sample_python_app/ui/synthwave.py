@@ -23,7 +23,7 @@ def synthwave_dashboard(
     astronomical panel and a right hourly-forecast panel. Both body
     panels are given a fixed height so they align visually.
     """
-    logger = setup_logger(mode="silent")
+    logger = setup_logger("SILENT")
     console = Console()
     logger.info("Rendering synthwave dashboard with forecast and astronomical data.")
 

@@ -8,12 +8,10 @@ from apscheduler.schedulers.blocking import BlockingScheduler
 from loguru import logger
 
 from sample_python_app.app.runner import fetcher
-from sample_python_app.core.logging import setup_logger
 
 
 def start_scheduler(test_mode: bool = False) -> None:
     """Start the scheduler to fetch astronomical data every 24 hours."""
-    setup_logger("normal")
     scheduler_logger = logger.bind(component="scheduler")
 
     if test_mode:
