@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.17.2 (2026-03-08)
+
+### Bug Fixes
+
+- Standardize logging across the application and improve metric handling
+  ([`275cfe0`](https://github.com/milsman2/python-app-template/commit/275cfe02604dd8c63799431974c8889933cb12ec))
+
+
 ## v1.17.1 (2026-03-07)
 
 ### Bug Fixes
