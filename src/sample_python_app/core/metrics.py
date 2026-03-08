@@ -1,6 +1,6 @@
 """Prometheus metrics for astronomical data fetches."""
 
-from prometheus_client import Counter, Histogram, start_http_server
+from prometheus_client import Counter, Gauge, Histogram, start_http_server
 
 FETCH_COUNTER = Counter(
     "fetch_all_total",
@@ -29,6 +29,12 @@ HTTP_REQUEST_DURATION = Histogram(
     "HTTP request latency in seconds",
     ["method", "host", "path"],
 )
+FORECAST_NEXT_HOUR_TEMPERATURE = Gauge(
+    "forecast_next_hour_temperature",
+    "Forecast temperature for 1 hour from now (°F)",
+    ["location"],
+)
+
 __all__ = [
     "FETCH_COUNTER",
     "FETCH_ERRORS",
@@ -36,5 +42,6 @@ __all__ = [
     "HTTP_REQUESTS",
     "HTTP_REQUEST_EXCEPTIONS",
     "HTTP_REQUEST_DURATION",
+    "FORECAST_NEXT_HOUR_TEMPERATURE",
     "start_http_server",
 ]

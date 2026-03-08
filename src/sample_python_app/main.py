@@ -4,7 +4,9 @@ Starts the Prometheus metrics server and the scheduler.
 """
 
 from sample_python_app.app import start_metrics_server, start_scheduler
-from sample_python_app.core import settings
+from sample_python_app.core import settings, setup_logger
+
+setup_logger(settings.LOG_LEVEL)
 
 
 def run_app() -> None:

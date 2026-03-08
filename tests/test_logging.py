@@ -9,7 +9,7 @@ from sample_python_app.core.logging import setup_logger
 
 def test_logger_normal_mode_stdout(capsys):
     """Test logger normal mode outputs to stdout."""
-    logger = setup_logger("normal")
+    logger = setup_logger("INFO")
     logger.info("Test normal mode log")
     out, _ = capsys.readouterr()
     assert "Test normal mode log" in out
@@ -17,7 +17,7 @@ def test_logger_normal_mode_stdout(capsys):
 
 def test_logger_silent_mode_no_stdout(capsys):
     """Test logger silent mode does not output to stdout."""
-    logger = setup_logger("silent")
+    logger = setup_logger("SILENT")
     logger.info("Test silent mode log")
     out, _ = capsys.readouterr()
     assert "Test silent mode log" not in out

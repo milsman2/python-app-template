@@ -30,6 +30,7 @@ class Settings(BaseSettings):
     TIMEZONE: str = "America/Chicago"
     PROMETHEUS_METRICS_PORT: int = 8000
     GF_SECURITY_ADMIN_PASSWORD: SecretStr = SecretStr("admin")
+    LOG_LEVEL: str = "INFO"
 
     model_config = SettingsConfigDict(
         env_file=".env",

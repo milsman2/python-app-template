@@ -1,6 +1,8 @@
 """Handles formatting and displaying astronomical data using rich and pyfiglet."""
 
-from sample_python_app.core import settings, setup_logger
+from loguru import logger
+
+from sample_python_app.core import settings
 from sample_python_app.models import AstronomicalData, ForecastFeature
 
 from .synthwave import synthwave_dashboard
@@ -11,8 +13,6 @@ def display_astronomical_data(astro: AstronomicalData, forecast: ForecastFeature
 
     Combined synthwave dashboard will be shown.
     """
-    logger = setup_logger("normal")
-    # Log plain-text summary for testability
     tz = settings.tz
     time_fmt = "%I:%M %p %Z"
     events = astro.formatted(tz, time_fmt)
