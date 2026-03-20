@@ -1,6 +1,15 @@
-"""Models package for weather.gov API response parsing."""
+"""Re-export weather models for convenience."""
 
-from sample_python_app.models.forecast_geojson import ForecastFeature
-from sample_python_app.models.weather_gov import AstronomicalData, WeatherGovFeature
+from sample_python_app.models.weather import (
+    AstronomicalData,
+    CurrentConditionsFeature,
+    ForecastFeature,
+    WeatherPointDataFeature,
+)
 
-__all__ = ["WeatherGovFeature", "AstronomicalData", "ForecastFeature"]
+__all__ = [
+    "WeatherPointDataFeature",
+    "ForecastFeature",
+    "AstronomicalData",
+    "CurrentConditionsFeature",
+]

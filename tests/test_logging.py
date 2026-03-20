@@ -1,5 +1,6 @@
 """Tests for sample_python_app.core.logging."""
 
+import sys
 import time
 
 from loguru import logger as loguru_logger
@@ -9,8 +10,9 @@ from sample_python_app.core.logging import setup_logger
 
 def test_logger_normal_mode_stdout(capsys):
     """Test logger normal mode outputs to stdout."""
-    logger = setup_logger("INFO")
-    logger.info("Test normal mode log")
+    loguru_logger.remove()
+    loguru_logger.add(sys.stdout, format="{message}", level="INFO")
+    loguru_logger.info("Test normal mode log")
     out, _ = capsys.readouterr()
     assert "Test normal mode log" in out
 

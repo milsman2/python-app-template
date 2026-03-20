@@ -7,7 +7,7 @@ jobs:
   build-cache:
     runs-on: ubuntu-latest
     env:
-      UV_VERSION: '0.10.8'
+      UV_VERSION: '0.10.10'
       PYTHON_VERSION: '3.13'
     steps:
       - name: Checkout repository

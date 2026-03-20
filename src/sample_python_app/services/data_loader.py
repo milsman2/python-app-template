@@ -12,9 +12,9 @@ from sample_python_app.core import (
 )
 from sample_python_app.exceptions import AppError, NetworkError, ServiceError
 from sample_python_app.models import (
-    AstronomicalData,
+    CurrentConditionsFeature,
     ForecastFeature,
-    WeatherGovFeature,
+    WeatherPointDataFeature,
 )
 from sample_python_app.services.http_client import CustomHTTPClient
 
@@ -24,41 +24,20 @@ weather_client = CustomHTTPClient(
 )
 
 
-def resolve_point_metadata(
+def fetch_weather_point_data(
     lat: float, lon: float, client: CustomHTTPClient | None = None
-) -> WeatherGovFeature:
+) -> WeatherPointDataFeature:
     """Resolve grid metadata for coordinates."""
     client = client or weather_client
     path = f"/points/{lat},{lon}"
 
     try:
         data = client.get_json(path)
-        return WeatherGovFeature.model_validate(data)
+        return WeatherPointDataFeature.model_validate(data)
     except (NetworkError, ServiceError) as exc:
         raise AppError("Failed to resolve point metadata") from exc
     except ValidationError as exc:
         raise AppError("Invalid metadata returned from weather service") from exc
-
-
-def fetch_astronomical_data_from_api(
-    lat: float,
-    lon: float,
-    client: CustomHTTPClient | None = None,
-) -> AstronomicalData:
-    """Fetch astronomical data for coordinates."""
-    client = client or weather_client
-    path = f"/points/{lat},{lon}"
-
-    try:
-        data = client.get_json(path)
-        model = WeatherGovFeature.model_validate(data)
-        return model.properties.astronomical_data
-    except (NetworkError, ServiceError) as exc:
-        raise AppError("Weather API request failed") from exc
-    except ValidationError as exc:
-        raise AppError(
-            "Invalid astronomical data returned from weather service"
-        ) from exc
 
 
 def fetch_hourly_forecast_from_api(
@@ -70,8 +49,8 @@ def fetch_hourly_forecast_from_api(
     client = client or weather_client
 
     try:
-        point = resolve_point_metadata(lat, lon, client)
-        forecast_url = point.properties.forecast_hourly
+        data = fetch_weather_point_data(lat, lon, client)
+        forecast_url = data.properties.forecast_hourly
         data = client.get_json(forecast_url)
         return ForecastFeature.model_validate(data)
     except (NetworkError, ServiceError) as exc:
@@ -93,6 +72,21 @@ def fetch_hourly_forecast_by_grid(
     try:
         data = client.get_json(path)
         return ForecastFeature.model_validate(data)
+    except (NetworkError, ServiceError) as exc:
+        raise AppError("Weather API request failed") from exc
+    except ValidationError as exc:
+        raise AppError("Invalid forecast returned from weather service") from exc
+
+
+def fetch_current_conditions_by_station(
+    station_id: str, client: CustomHTTPClient | None
+) -> CurrentConditionsFeature:
+    """Fetch current conditions for a station ID."""
+    client = client or weather_client
+    path = f"stations/{station_id}/observations/latest"
+    try:
+        client.get_json(path)
+        return CurrentConditionsFeature.model_validate(client.get_json(path))
     except (NetworkError, ServiceError) as exc:
         raise AppError("Weather API request failed") from exc
     except ValidationError as exc:
