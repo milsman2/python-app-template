@@ -3,18 +3,15 @@
 including astronomical data utilities.
 """
 
-from datetime import datetime
 from typing import Annotated, Any
-from zoneinfo import ZoneInfo
 
 from pydantic import BaseModel, Field
 
-
-class Distance(BaseModel):
-    """Represents a distance value with unit code."""
-
-    unit_code: Annotated[str, Field(..., alias="unitCode")]
-    value: float
+from sample_python_app.models.weather.weather_common import (
+    NWR,
+    AstronomicalData,
+    UnitAndValue,
+)
 
 
 class Bearing(BaseModel):
@@ -32,7 +29,7 @@ class RelativeLocationProperties(BaseModel):
 
     city: str
     state: str
-    distance: Distance
+    distance: UnitAndValue
     bearing: Bearing
 
 
@@ -49,49 +46,6 @@ class RelativeLocation(BaseModel):
     type: str
     geometry: RelativeLocationGeometry
     properties: RelativeLocationProperties
-
-
-class AstronomicalData(BaseModel):
-    """Astronomical event times for a given location.
-
-    With timezone conversion and formatting methods.
-    """
-
-    sunrise: datetime
-    sunset: datetime
-    transit: datetime
-    civil_twilight_begin: Annotated[datetime, Field(..., alias="civilTwilightBegin")]
-    civil_twilight_end: Annotated[datetime, Field(..., alias="civilTwilightEnd")]
-    nautical_twilight_begin: Annotated[
-        datetime, Field(..., alias="nauticalTwilightBegin")
-    ]
-    nautical_twilight_end: Annotated[datetime, Field(..., alias="nauticalTwilightEnd")]
-    astronomical_twilight_begin: Annotated[
-        datetime, Field(..., alias="astronomicalTwilightBegin")
-    ]
-    astronomical_twilight_end: Annotated[
-        datetime, Field(..., alias="astronomicalTwilightEnd")
-    ]
-
-    def as_local(self, tz: ZoneInfo) -> dict[str, datetime]:
-        """Return astronomical event times converted to the given timezone."""
-        return {name: value.astimezone(tz) for name, value in self.__dict__.items()}
-
-    def formatted(self, tz: ZoneInfo, fmt: str) -> dict[str, str]:
-        """Return formatted astronomical event times as strings.
-
-        For the given timezone and format.
-        """
-        return {name: dt.strftime(fmt) for name, dt in self.as_local(tz).items()}
-
-
-class NWR(BaseModel):
-    """NOAA Weather Radio transmitter info."""
-
-    transmitter: str
-    same_code: Annotated[str, Field(..., alias="sameCode")]
-    area_broadcast: Annotated[str, Field(..., alias="areaBroadcast")]
-    point_broadcast: Annotated[str, Field(..., alias="pointBroadcast")]
 
 
 class Properties(BaseModel):
@@ -126,7 +80,7 @@ class Geometry(BaseModel):
     coordinates: list[float]
 
 
-class WeatherGovFeature(BaseModel):
+class WeatherPointDataFeature(BaseModel):
     """Root model for weather.gov point feature response."""
 
     context: Annotated[list[Any], Field(..., alias="@context")]

@@ -3,7 +3,7 @@
 from rich.table import Table
 
 from sample_python_app.core import Settings
-from sample_python_app.models.forecast_geojson import ForecastFeature
+from sample_python_app.models import ForecastFeature
 
 
 def build_forecast_table(forecast: ForecastFeature, settings: Settings, periods=12):

@@ -6,7 +6,7 @@ Assumes Pydantic v2 and that `ForecastFeature.model_validate` is available.
 import json
 from datetime import datetime
 
-from sample_python_app.models.forecast_geojson import ForecastFeature
+from sample_python_app.models import ForecastFeature
 
 
 def test_forecast_feature_parses_sample_file():

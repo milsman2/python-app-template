@@ -9,15 +9,20 @@ from pathlib import Path
 import httpx
 
 from sample_python_app.app.scheduler import start_scheduler
-from sample_python_app.models import WeatherGovFeature
+from sample_python_app.models import WeatherPointDataFeature
 
 
 def test_display_with_sample_file(capsys):
     """Test display of astronomical data from sample file."""
-    sample_path = Path(__file__).parent.parent / "data" / "weather" / "sample.json"
+    sample_path = (
+        Path(__file__).parent.parent
+        / "data"
+        / "weather"
+        / "current_conditions_sample.json"
+    )
     with open(sample_path, encoding="utf-8") as f:
         data = json.load(f)
-    model = WeatherGovFeature.model_validate(data)
+    model = WeatherPointDataFeature.model_validate(data)
     astro = model.properties.astronomical_data
     assert astro.sunrise is not None
     # Use scheduler in test mode to avoid infinite loop
@@ -35,7 +40,7 @@ def test_display_with_real_api(capsys):
     )
     assert response.status_code == 200
     data = response.json()
-    model = WeatherGovFeature.model_validate(data)
+    model = WeatherPointDataFeature.model_validate(data)
     astro = model.properties.astronomical_data
     assert astro.sunrise is not None
     # Use scheduler in test mode to avoid infinite loop and NameError

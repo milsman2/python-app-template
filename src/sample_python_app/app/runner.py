@@ -16,11 +16,20 @@ from sample_python_app.core import (
 from sample_python_app.exceptions import AppError
 from sample_python_app.services import (
     CustomHTTPClient,
-    fetch_astronomical_data_from_api,
     fetch_hourly_forecast_from_api,
+    fetch_weather_point_data,
     set_next_hour_forecast_temperature,
 )
 from sample_python_app.ui import display_astronomical_data
+
+
+def extract_astronomical_data(weather_point_data):
+    """Extract the astronomical data from a WeatherPointDataFeature object."""
+    if hasattr(weather_point_data, "properties") and hasattr(
+        weather_point_data.properties, "astronomical_data"
+    ):
+        return weather_point_data.properties.astronomical_data
+    raise AttributeError("Input does not have properties.astronomical_data")
 
 
 class AstroFetcher:
@@ -45,7 +54,7 @@ class AstroFetcher:
         start = time.time()
 
         try:
-            astro = fetch_astronomical_data_from_api(lat, lon, client=self.client)
+            weather_point_data = fetch_weather_point_data(lat, lon, client=self.client)
             forecast = fetch_hourly_forecast_from_api(lat, lon, client=self.client)
             set_next_hour_forecast_temperature(forecast, location=f"{lat},{lon}")
             FETCH_COUNTER.inc()
@@ -60,7 +69,8 @@ class AstroFetcher:
         today = date.today().isoformat()
 
         if self._last_displayed_day != today:
-            display_astronomical_data(astro, forecast)
+            astro_data = extract_astronomical_data(weather_point_data)
+            display_astronomical_data(astro_data, forecast)
             self._last_displayed_day = today
 
     def reset_display(self):
@@ -91,9 +101,6 @@ def shutdown_runner() -> None:
     """Shutdown helper to close long-lived resources owned by the runner.
 
     Call this from application shutdown hooks to ensure the HTTP client is
-    properly closed and connections are released.
+    properly closed and resources are released.
     """
-    try:
-        fetcher.close()
-    except Exception:
-        logger.exception("Error during runner shutdown")
+    fetcher.close()
