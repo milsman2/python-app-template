@@ -2,6 +2,17 @@
 
 <!-- version list -->
 
+## v1.17.3 (2026-03-20)
+
+### Bug Fixes
+
+- Refactor data loading services and update dependencies
+  ([`5e719eb`](https://github.com/milsman2/python-app-template/commit/5e719eb1b406002e69bc0d2db9f4f930755ecfa2))
+
+- Update test for logger normal mode to use loguru directly
+  ([`6daa1fc`](https://github.com/milsman2/python-app-template/commit/6daa1fc6d07f62339d13d7c6868c8091d1567592))
+
+
 ## v1.17.2 (2026-03-08)
 
 ### Bug Fixes
