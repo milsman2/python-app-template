@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.17.4 (2026-03-22)
+
+### Bug Fixes
+
+- Implement multiple code changes to enhance functionality and improve performance
+  ([`66dc99e`](https://github.com/milsman2/python-app-template/commit/66dc99ee483cf8d9c6f375e8fe843470c3443ac1))
+
+
 ## v1.17.3 (2026-03-20)
 
 ### Bug Fixes
