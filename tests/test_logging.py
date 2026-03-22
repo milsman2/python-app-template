@@ -25,6 +25,15 @@ def test_logger_silent_mode_no_stdout(capsys):
     assert "Test silent mode log" not in out
 
 
+def test_logger_debug_level(capsys):
+    """Test logger outputs at DEBUG level."""
+    loguru_logger.remove()
+    loguru_logger.add(sys.stdout, format="{message}", level="DEBUG")
+    loguru_logger.debug("Debug log test")
+    out, _ = capsys.readouterr()
+    assert "Debug log test" in out
+
+
 def test_logger_file_logging(tmp_path):
     """Test logger file logging to app.log."""
     log_path = tmp_path / "app.log"

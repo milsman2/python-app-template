@@ -3,6 +3,7 @@
 Uses sample file and real API call.
 """
 
+import copy
 import json
 from pathlib import Path
 
@@ -30,6 +31,29 @@ def test_display_with_sample_file(capsys):
     out = capsys.readouterr().out
     # Check for synthwave dashboard box-drawing header
     assert "Synthwave" in out
+
+
+def test_display_with_invalid_json():
+    """Test WeatherPointDataFeature with invalid JSON structure."""
+    bad_data = {"not": "a valid weather point"}
+    import pytest
+    from pydantic import ValidationError
+
+    with pytest.raises(ValidationError):
+        WeatherPointDataFeature.model_validate(bad_data)
+
+
+def test_display_missing_astro():
+    """Test WeatherPointDataFeature with missing astronomical_data."""
+    with open("data/weather/current_conditions_sample.json", encoding="utf-8") as f:
+        data = json.load(f)
+    data2 = copy.deepcopy(data)
+    del data2["properties"]["astronomicalData"]
+    import pytest
+    from pydantic import ValidationError
+
+    with pytest.raises(ValidationError):
+        WeatherPointDataFeature.model_validate(data2)
 
 
 def test_display_with_real_api(capsys):
