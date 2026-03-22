@@ -3,7 +3,18 @@
 Covers Settings and WeatherSettings instantiation, properties, and model_config.
 """
 
+from zoneinfo import ZoneInfoNotFoundError
+
+import pytest
+
 from sample_python_app.core.config import settings, weather_settings
+
+
+def test_settings_invalid_timezone(monkeypatch):
+    """Test settings.tz property with invalid timezone."""
+    monkeypatch.setattr(settings, "TIMEZONE", "Invalid/Zone")
+    with pytest.raises(ZoneInfoNotFoundError):
+        _ = settings.tz
 
 
 def test_settings_fields():
