@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.18.0 (2026-03-27)
+
+### Features
+
+- Update workflows
+  ([`99f305b`](https://github.com/milsman2/python-app-template/commit/99f305b61fa96c00cf0f92a72e004983e9726570))
+
+
 ## v1.17.4 (2026-03-22)
 
 ### Bug Fixes
