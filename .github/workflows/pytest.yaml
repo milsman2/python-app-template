@@ -2,15 +2,23 @@ name: Unit Test & Coverage (Reusable)
 
 on:
   workflow_call:
-
+    inputs:
+      UV_VERSION:
+        required: false
+        type: string
+        default: '>=0.10.10'
+      PYTHON_VERSION:
+        required: false
+        type: string
+        default: '3.13'
 jobs:
   unit-test-coverage:
     runs-on: ubuntu-latest
     permissions:
       contents: read
     env:
-      UV_VERSION: '>=0.10.10'
-      PYTHON_VERSION: '3.13'
+      UV_VERSION: ${{ inputs.UV_VERSION }}
+      PYTHON_VERSION: ${{ inputs.PYTHON_VERSION }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v6
