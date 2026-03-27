@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.18.1 (2026-03-27)
+
+### Bug Fixes
+
+- Update workflow references to use main branch and add black configuration
+  ([`dfda970`](https://github.com/milsman2/python-app-template/commit/dfda97077ec0b1c042359bfe1a750ea4d5235ca5))
+
+
 ## v1.18.0 (2026-03-27)
 
 ### Features
