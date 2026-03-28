@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.18.2 (2026-03-28)
+
+### Bug Fixes
+
+- Formatting and settings management
+  ([`f708de5`](https://github.com/milsman2/python-app-template/commit/f708de5059cf04811e35871b7829a38274ba2127))
+
+
 ## v1.18.1 (2026-03-27)
 
 ### Bug Fixes
