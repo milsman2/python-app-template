@@ -11,15 +11,8 @@ setup_logger(settings.LOG_LEVEL)
 
 def run_app() -> None:
     """Start the metrics server and scheduler."""
-    import os
-
-    test_mode = settings.TEST_MODE or os.environ.get("TEST_MODE", "0") in (
-        "1",
-        "true",
-        "True",
-    )
+    test_mode = settings.TEST_MODE
     if test_mode:
-        # In test mode, do not start servers or infinite loops
         return
     start_metrics_server(port=settings.PROMETHEUS_METRICS_PORT)
     start_scheduler()
