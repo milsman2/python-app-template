@@ -59,6 +59,18 @@ jobs:
           platforms: ${{ matrix.platform }}
           push: true
           tags: docker.io/${{ env.DOCKER_TAGS }}-${{ matrix.suffix }}
+      - name: Wait for image to be available in Docker Hub
+        run: |
+          for i in {1..20}; do
+            if docker buildx imagetools inspect docker.io/${{ env.DOCKER_TAGS }}-${{ matrix.suffix }} > /dev/null 2>&1; then
+              echo "Image found!"
+              exit 0
+            fi
+            echo "Waiting for image to be available... ($i)"
+            sleep 6
+          done
+          echo "Image not found after waiting. Exiting."
+          exit 1
       - name: Run Trivy vulnerability scanner (per-arch)
         uses: aquasecurity/trivy-action@0.35.0
         with:
