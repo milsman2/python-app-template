@@ -94,6 +94,7 @@ jobs:
       DOCKER_PATH_CONTEXT: ${{ inputs.DOCKER_PATH_CONTEXT }}
       DOCKER_BUILD_DOCKERFILE: ${{ inputs.DOCKER_BUILD_DOCKERFILE }}
       DOCKER_LOAD_BOOL: false
-      DOCKER_TAGS: ${{ inputs.DOCKER_USERNAME }}/${{ inputs.DOCKER_REPOSITORY }}:${{ needs.Semantic-Release.outputs.tag }}
+      DOCKER_TAGS: ${{ inputs.DOCKER_USERNAME }}_${{ inputs.DOCKER_REPOSITORY }}_${{ needs.Semantic-Release.outputs.tag }}
       DOCKER_PUSH_BOOL: true
       DOCKER_USERNAME: ${{ inputs.DOCKER_USERNAME }}
+      DOCKER_PLATFORMS: '["linux/amd64","linux/arm64"]'
