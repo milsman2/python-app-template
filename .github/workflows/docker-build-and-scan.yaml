@@ -33,7 +33,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: ${{ fromJson(inputs.DOCKER_PLATFORMS) }}
+        include:
+          - platform: linux/amd64
+            suffix: linux-amd64
+          - platform: linux/arm64
+            suffix: linux-arm64
     env:
       DOCKER_PATH_CONTEXT: ${{ inputs.DOCKER_PATH_CONTEXT }}
       DOCKER_BUILD_DOCKERFILE: ${{ inputs.DOCKER_BUILD_DOCKERFILE }}
@@ -54,11 +58,11 @@ jobs:
           file: ${{ env.DOCKER_BUILD_DOCKERFILE }}
           platforms: ${{ matrix.platform }}
           push: true
-          tags: docker.io/${{ env.DOCKER_TAGS }}-${{ matrix.platform.replace('/', '-') }}
+          tags: docker.io/${{ env.DOCKER_TAGS }}-${{ matrix.suffix }}
       - name: Run Trivy vulnerability scanner (per-arch)
         uses: aquasecurity/trivy-action@0.35.0
         with:
-          image-ref: docker.io/${{ env.DOCKER_TAGS }}-${{ matrix.platform }}
+          image-ref: docker.io/${{ env.DOCKER_TAGS }}-${{ matrix.suffix }}
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
@@ -80,5 +84,5 @@ jobs:
         run: |
           docker buildx imagetools create \
             -t docker.io/${{ env.DOCKER_TAGS }} \
-            docker.io/${{ env.DOCKER_TAGS }}-linux_amd64 \
-            docker.io/${{ env.DOCKER_TAGS }}-linux_arm64
+            docker.io/${{ env.DOCKER_TAGS }}-linux-amd64 \
+            docker.io/${{ env.DOCKER_TAGS }}-linux-arm64
