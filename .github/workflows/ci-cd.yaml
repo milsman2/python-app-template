@@ -42,7 +42,6 @@ jobs:
       DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
       DOCKER_PLATFORMS: '["linux/amd64","linux/arm64"]'
     secrets: inherit
-
   release:
     if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v')
     needs: [test, docker-build-and-image-scan]
