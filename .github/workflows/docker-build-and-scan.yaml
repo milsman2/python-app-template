@@ -54,7 +54,7 @@ jobs:
           file: ${{ env.DOCKER_BUILD_DOCKERFILE }}
           platforms: ${{ matrix.platform }}
           push: true
-          tags: docker.io/${{ env.DOCKER_TAGS }}-${{ matrix.platform }}
+          tags: docker.io/${{ env.DOCKER_TAGS }}-${{ matrix.platform.replace('/', '-') }}
       - name: Run Trivy vulnerability scanner (per-arch)
         uses: aquasecurity/trivy-action@0.35.0
         with:
