@@ -2,6 +2,34 @@
 
 <!-- version list -->
 
+## v1.19.0 (2026-03-31)
+
+### Bug Fixes
+
+- Correct platform handling and tag formatting in Docker build workflow
+  ([`c76ec11`](https://github.com/milsman2/python-app-template/commit/c76ec11695660a41333d62b5fb520b54f893433a))
+
+- Remove DOCKER_PLATFORMS variable from CI/CD workflow
+  ([`551e671`](https://github.com/milsman2/python-app-template/commit/551e671c000033ed36714f7db637501dab7563cc))
+
+- Remove unnecessary blank line in CI/CD workflow
+  ([`829fb83`](https://github.com/milsman2/python-app-template/commit/829fb83439f31f6fc7c1dbf83909440afae156f6))
+
+- Update Docker tags format in CI/CD and release workflows
+  ([`3158fc0`](https://github.com/milsman2/python-app-template/commit/3158fc03e42b37246582aee7b680abf43e3938a8))
+
+### Features
+
+- Add multi-architecture support for Docker builds and scans
+  ([`368b176`](https://github.com/milsman2/python-app-template/commit/368b1768ebca2462ee93c6c96ccb89ebd93463be))
+
+- Add wait step for Docker image availability in build workflow
+  ([`b08fdef`](https://github.com/milsman2/python-app-template/commit/b08fdef0a9dcab51614456e43b1c9bd0ada689bd))
+
+- Simplify Docker build workflow by removing unused variables and updating multi-arch image handling
+  ([`103a0af`](https://github.com/milsman2/python-app-template/commit/103a0afe8db8c85f6337d09d46ac59df852d7d65))
+
+
 ## v1.18.2 (2026-03-28)
 
 ### Bug Fixes
