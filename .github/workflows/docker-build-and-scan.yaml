@@ -12,32 +12,13 @@ on:
       DOCKER_TAGS:
         required: true
         type: string
-      DOCKER_LOAD_BOOL:
-        required: false
-        type: boolean
-        default: false
-      DOCKER_PUSH_BOOL:
-        required: false
-        type: boolean
-        default: false
       DOCKER_USERNAME:
         required: true
         type: string
-      DOCKER_PLATFORMS:
-        required: false
-        type: string
-        default: 'linux/amd64,linux/arm64'
 
 jobs:
-  build:
+  build-and-scan:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        include:
-          - platform: linux/amd64
-            suffix: linux-amd64
-          - platform: linux/arm64
-            suffix: linux-arm64
     env:
       DOCKER_PATH_CONTEXT: ${{ inputs.DOCKER_PATH_CONTEXT }}
       DOCKER_BUILD_DOCKERFILE: ${{ inputs.DOCKER_BUILD_DOCKERFILE }}
@@ -51,50 +32,20 @@ jobs:
         with:
           username: ${{ env.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Build & push per-arch image
+      - name: Build & push multi-arch image
         uses: docker/build-push-action@v7
         with:
           context: ${{ env.DOCKER_PATH_CONTEXT }}
           file: ${{ env.DOCKER_BUILD_DOCKERFILE }}
-          platforms: ${{ matrix.platform }}
+          platforms: linux/amd64,linux/arm64
           push: true
-          tags: docker.io/${{ env.DOCKER_TAGS }}-${{ matrix.suffix }}
-      - name: Wait for image to be available in Docker Hub
-        run: |
-          for i in {1..20}; do
-            if docker buildx imagetools inspect docker.io/${{ env.DOCKER_TAGS }}-${{ matrix.suffix }} > /dev/null 2>&1; then
-              echo "Image found!"
-              exit 0
-            fi
-            echo "Waiting for image to be available... ($i)"
-            sleep 6
-          done
-          echo "Image not found after waiting. Exiting."
-          exit 1
-      - name: Run Trivy vulnerability scanner (per-arch)
+          tags: docker.io/${{ env.DOCKER_TAGS }}
+      - name: Run Trivy vulnerability scanner (multi-arch manifest)
         uses: aquasecurity/trivy-action@0.35.0
         with:
-          image-ref: docker.io/${{ env.DOCKER_TAGS }}-${{ matrix.suffix }}
+          image-ref: docker.io/${{ env.DOCKER_TAGS }}
           format: 'table'
           exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'os,library'
           severity: 'CRITICAL,HIGH'
-
-  manifest:
-    runs-on: ubuntu-latest
-    needs: build
-    env:
-      DOCKER_TAGS: ${{ inputs.DOCKER_TAGS }}
-      DOCKER_USERNAME: ${{ inputs.DOCKER_USERNAME }}
-    steps:
-      - uses: docker/login-action@v4
-        with:
-          username: ${{ env.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - name: Create and push multi-arch manifest
-        run: |
-          docker buildx imagetools create \
-            -t docker.io/${{ env.DOCKER_TAGS }} \
-            docker.io/${{ env.DOCKER_TAGS }}-linux-amd64 \
-            docker.io/${{ env.DOCKER_TAGS }}-linux-arm64
