@@ -41,7 +41,7 @@ jobs:
           push: true
           tags: docker.io/${{ env.DOCKER_TAGS }}
       - name: Run Trivy vulnerability scanner (multi-arch manifest)
-        uses: aquasecurity/trivy-action@0.35.0
+        uses: aquasecurity/trivy-action@v0.36.0
         with:
           image-ref: docker.io/${{ env.DOCKER_TAGS }}
           format: 'table'
