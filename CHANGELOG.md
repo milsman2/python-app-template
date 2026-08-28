@@ -2,6 +2,17 @@
 
 <!-- version list -->
 
+## v1.19.1 (2026-08-28)
+
+### Bug Fixes
+
+- Modernize GitHub Actions and uv workflows
+  ([`25573e1`](https://github.com/milsman2/python-app-template/commit/25573e15cf9463b943f0b2e0f394258a8dd25cb4))
+
+- Update Dockerfile and CI/CD workflow for improved caching and image handling
+  ([`eb4f0d1`](https://github.com/milsman2/python-app-template/commit/eb4f0d16999090dbb2d303c5ddf27af6bbece8d0))
+
+
 ## v1.19.0 (2026-03-31)
 
 ### Bug Fixes
