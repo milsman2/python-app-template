@@ -6,7 +6,7 @@ on:
       UV_VERSION:
         required: false
         type: string
-        default: '0.10.10'
+        default: '0.12.7'
       PYTHON_VERSION:
         required: false
         type: string
@@ -15,28 +15,23 @@ on:
 jobs:
   build-cache:
     runs-on: ubuntu-latest
-    env:
-      UV_VERSION: ${{ inputs.UV_VERSION }}
-      PYTHON_VERSION: ${{ inputs.PYTHON_VERSION }}
+
+    permissions:
+      contents: read
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
+
       - name: Install uv
-        uses: astral-sh/setup-uv@v7
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9
         with:
-          version: ${{ env.UV_VERSION }}
-          python-version: ${{ env.PYTHON_VERSION }}
-          enable-cache: false
-      - name: Install dependencies and populate cache
-        run: |
-          echo "Building global UV cache..."
-          uv sync
-          echo "Cache populated successfully"
-      - name: Save uv caches
-        uses: actions/cache/save@v5
-        with:
-          path: |
-            ~/.cache/uv
-            ~/.local/share/uv
-            .venv
-          key: uv-${{ github.ref_name }}-${{ env.UV_VERSION }}-${{ env.PYTHON_VERSION }}-${{ hashFiles('pyproject.toml', 'uv.lock') }}
+          version: ${{ inputs.UV_VERSION }}
+          python-version: ${{ inputs.PYTHON_VERSION }}
+          enable-cache: true
+          cache-dependency-glob: |
+            pyproject.toml
+            uv.lock
+
+      - name: Install dependencies
+        run: uv sync --locked
