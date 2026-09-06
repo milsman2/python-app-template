@@ -31,7 +31,7 @@ jobs:
       PYTHON_VERSION: ${{ vars.PYTHON_VERSION }}
 
   docker-build-and-image-scan:
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' && github.actor != 'dependabot[bot]'
     needs: test
     uses: ./.github/workflows/docker-build-and-scan.yaml
     with:
