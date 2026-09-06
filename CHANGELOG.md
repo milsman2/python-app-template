@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.19.2 (2026-09-06)
+
+### Bug Fixes
+
+- Make release workflow reusable across repos
+  ([`176ec0f`](https://github.com/milsman2/python-app-template/commit/176ec0f1f6c518eb83d95ee119b04d3315b32cca))
+
+
 ## v1.19.1 (2026-08-28)
 
 ### Bug Fixes
