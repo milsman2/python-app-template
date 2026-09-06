@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.19.3 (2026-09-06)
+
+### Bug Fixes
+
+- Update dependencies in workflows for improved stability
+  ([`060e678`](https://github.com/milsman2/python-app-template/commit/060e678b66c01a1df9d32ef713f48e851a6dfbac))
+
+
 ## v1.19.2 (2026-09-06)
 
 ### Bug Fixes
