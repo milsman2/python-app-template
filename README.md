@@ -38,12 +38,36 @@ python-app-template/
 
 ## CI/CD & Workflows
 
-- **cache-uv-build.yaml**: Caches Python dependencies for fast builds
+- **cache-uv-build.yaml**: Reusable workflow for warming the uv dependency cache
 - **ruff.yaml**: Lints code for style and quality
-- **pytest.yaml**: Runs unit tests
-- **docker-build-and-scan.yaml**: Multi-arch Docker builds, Trivy vulnerability scan
-- **ci-cd.yaml**: Orchestrates all jobs, triggers on push, PR, release, manual
-- **release.yaml**: Publishes releases on main/tags
+- **pytest.yaml**: Runs unit tests and reports coverage
+- **docker-build-and-scan.yaml**: Reusable multi-architecture Docker build and Trivy vulnerability scan
+- **release.yaml**: Creates semantic releases and publishes release tags
+- **ci-cd.yaml**: Top-level pipeline for linting, tests, image builds, scans, and releases
+
+The top-level pipeline runs on pushes, pull requests, and manual dispatches. It also
+supports `workflow_call`, so another workflow can invoke the complete pipeline:
+
+```yaml
+jobs:
+  ci-cd:
+    uses: milsman2/python-app-template/.github/workflows/ci-cd.yaml@main
+    secrets: inherit
+```
+
+The calling repository must provide the `UV_VERSION`, `PYTHON_VERSION`,
+`DOCKER_USERNAME`, and `DOCKER_REPOSITORY` repository or organization variables used
+by the pipeline. Docker image publishing additionally requires the inherited
+`DOCKERHUB_TOKEN` secret.
+
+For local workflow composition, use a relative path instead:
+
+```yaml
+jobs:
+  ci-cd:
+    uses: ./.github/workflows/ci-cd.yaml
+    secrets: inherit
+```
 
 ### Docker Build Safety Features
 - **Multi-arch builds**: Uses Docker Buildx and QEMU for isolated, reproducible builds across amd64 and arm64
