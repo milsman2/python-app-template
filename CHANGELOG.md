@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.19.5 (2026-09-06)
+
+### Bug Fixes
+
+- Update CI/CD workflow to support workflow_call event for docker build
+  ([`76483c2`](https://github.com/milsman2/python-app-template/commit/76483c2d9f06856d35ce4177c618400201f1d3f3))
+
+
 ## v1.19.4 (2026-09-06)
 
 ### Bug Fixes
