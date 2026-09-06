@@ -82,7 +82,7 @@ jobs:
   docker-release:
     needs: semantic-release
     if: needs.semantic-release.outputs.tag != ''
-    uses: ./.github/workflows/docker-build-and-scan.yaml
+    uses: milsman2/python-app-template/.github/workflows/docker-build-and-scan.yaml@v1.19.1
     secrets: inherit
     with:
       DOCKER_PATH_CONTEXT: ${{ inputs.DOCKER_PATH_CONTEXT }}
