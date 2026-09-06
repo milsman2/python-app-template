@@ -53,9 +53,16 @@ jobs:
       contents: write
     secrets: inherit
     with:
-      DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
-      DOCKER_REPOSITORY: ${{ vars.DOCKER_REPOSITORY }}
       UV_VERSION: ${{ vars.UV_VERSION }}
       PYTHON_VERSION: ${{ vars.PYTHON_VERSION }}
+
+  docker-release:
+    needs: release
+    if: needs.release.outputs.tag != ''
+    uses: ./.github/workflows/docker-build-and-scan.yaml
+    with:
       DOCKER_PATH_CONTEXT: .
       DOCKER_BUILD_DOCKERFILE: ./Dockerfile
+      DOCKER_TAGS: ${{ vars.DOCKER_USERNAME }}/${{ vars.DOCKER_REPOSITORY }}:${{ needs.release.outputs.tag }}
+      DOCKER_USERNAME: ${{ vars.DOCKER_USERNAME }}
+    secrets: inherit
