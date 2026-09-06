@@ -2,6 +2,14 @@
 
 <!-- version list -->
 
+## v1.19.4 (2026-09-06)
+
+### Bug Fixes
+
+- Refactor release workflow to streamline Docker integration and remove unnecessary inputs
+  ([`2ce32d9`](https://github.com/milsman2/python-app-template/commit/2ce32d969f52391470242a49765c2e0009e0bcd2))
+
+
 ## v1.19.3 (2026-09-06)
 
 ### Bug Fixes
