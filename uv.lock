@@ -623,7 +623,7 @@ wheels = [
 
 [[package]]
 name = "sample-python-app"
-version = "1.19.5"
+version = "1.19.6"
 source = { editable = "." }
 dependencies = [
     { name = "apscheduler" },
