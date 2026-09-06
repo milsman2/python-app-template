@@ -14,7 +14,7 @@ on:
       UV_VERSION:
         required: false
         type: string
-        default: '0.12.7'
+        default: '0.12.10'
 
       PYTHON_VERSION:
         required: false
@@ -54,7 +54,7 @@ jobs:
         run: git reset --hard "${{ github.sha }}"
 
       - name: Install uv
-        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9 # v9.0.0
+        uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
         with:
           version: ${{ inputs.UV_VERSION }}
           python-version: ${{ inputs.PYTHON_VERSION }}
@@ -68,13 +68,13 @@ jobs:
 
       - name: Semantic Release
         id: release
-        uses: python-semantic-release/python-semantic-release@v10.5.3
+        uses: python-semantic-release/python-semantic-release@v10.6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish GitHub Release
         if: steps.release.outputs.released == 'true'
-        uses: python-semantic-release/publish-action@v10.5.3
+        uses: python-semantic-release/publish-action@v10.6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.release.outputs.tag }}
@@ -82,7 +82,7 @@ jobs:
   docker-release:
     needs: semantic-release
     if: needs.semantic-release.outputs.tag != ''
-    uses: milsman2/python-app-template/.github/workflows/docker-build-and-scan.yaml@v1.19.1
+    uses: ./.github/workflows/docker-build-and-scan.yaml
     secrets: inherit
     with:
       DOCKER_PATH_CONTEXT: ${{ inputs.DOCKER_PATH_CONTEXT }}
