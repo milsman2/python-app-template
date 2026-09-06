@@ -3,14 +3,6 @@ name: UV - Release (Reusable)
 on:
   workflow_call:
     inputs:
-      DOCKER_USERNAME:
-        required: true
-        type: string
-
-      DOCKER_REPOSITORY:
-        required: true
-        type: string
-
       UV_VERSION:
         required: false
         type: string
@@ -21,13 +13,9 @@ on:
         type: string
         default: '3.13'
 
-      DOCKER_PATH_CONTEXT:
-        required: true
-        type: string
-
-      DOCKER_BUILD_DOCKERFILE:
-        required: true
-        type: string
+    outputs:
+      tag:
+        value: ${{ jobs.semantic-release.outputs.tag }}
 
 jobs:
   semantic-release:
@@ -78,14 +66,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ steps.release.outputs.tag }}
-
-  docker-release:
-    needs: semantic-release
-    if: needs.semantic-release.outputs.tag != ''
-    uses: ./.github/workflows/docker-build-and-scan.yaml
-    secrets: inherit
-    with:
-      DOCKER_PATH_CONTEXT: ${{ inputs.DOCKER_PATH_CONTEXT }}
-      DOCKER_BUILD_DOCKERFILE: ${{ inputs.DOCKER_BUILD_DOCKERFILE }}
-      DOCKER_TAGS: ${{ inputs.DOCKER_USERNAME }}/${{ inputs.DOCKER_REPOSITORY }}:${{ needs.semantic-release.outputs.tag }}
-      DOCKER_USERNAME: ${{ inputs.DOCKER_USERNAME }}
