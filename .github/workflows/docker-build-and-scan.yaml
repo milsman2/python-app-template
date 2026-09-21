@@ -40,7 +40,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push multi-arch image
-        uses: docker/build-push-action@v7.3.0
+        uses: docker/build-push-action@v7.4.0
         with:
           context: ${{ inputs.DOCKER_PATH_CONTEXT }}
           file: ${{ inputs.DOCKER_BUILD_DOCKERFILE }}
